@@ -1,0 +1,112 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="quizAppModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="q_cevap">
+    <Key>
+      <PropertyRef Name="cevapId" />
+    </Key>
+    <Property Name="cevapId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="soruId" Type="int" />
+    <Property Name="cevap" Type="nvarchar" MaxLength="100" />
+    <Property Name="dogruCvp" Type="bit" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6013: The table/view 'quizApp.dbo.q_genelDurum' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="q_genelDurum">
+          <Property Name="userid" Type="int" />
+          <Property Name="genelPuan" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="sinavID" Type="int" />
+        </EntityType>-->
+  <EntityType Name="q_kategori">
+    <Key>
+      <PropertyRef Name="kategoriId" />
+    </Key>
+    <Property Name="kategoriId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="kategori" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="q_kullanici">
+    <Key>
+      <PropertyRef Name="userid" />
+    </Key>
+    <Property Name="userid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="username" Type="nvarchar" MaxLength="50" />
+    <Property Name="password" Type="nvarchar" MaxLength="20" />
+    <Property Name="rol" Type="bit" />
+  </EntityType>
+  <EntityType Name="q_sinavSonuc">
+    <Key>
+      <PropertyRef Name="sinavId" />
+    </Key>
+    <Property Name="sinavId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="userid" Type="int" />
+    <Property Name="soruId" Type="int" />
+    <Property Name="cevapId" Type="int" />
+    <Property Name="dogruMu" Type="bit" />
+    <Property Name="kategoriId" Type="int" />
+    <Property Name="puan" Type="decimal" Precision="18" Scale="0" />
+    <Property Name="sinavTarih" Type="date" />
+  </EntityType>
+  <EntityType Name="q_soru">
+    <Key>
+      <PropertyRef Name="soruId" />
+    </Key>
+    <Property Name="soruId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="soru" Type="image" />
+    <Property Name="derece" Type="int" />
+    <Property Name="kategoriId" Type="int" />
+  </EntityType>
+  <Association Name="FK__q_cevap__soruId__1DB06A4F">
+    <End Role="q_soru" Type="Self.q_soru" Multiplicity="0..1" />
+    <End Role="q_cevap" Type="Self.q_cevap" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="q_soru">
+        <PropertyRef Name="soruId" />
+      </Principal>
+      <Dependent Role="q_cevap">
+        <PropertyRef Name="soruId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__q_sinavSo__useri__208CD6FA">
+    <End Role="q_kullanici" Type="Self.q_kullanici" Multiplicity="0..1" />
+    <End Role="q_sinavSonuc" Type="Self.q_sinavSonuc" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="q_kullanici">
+        <PropertyRef Name="userid" />
+      </Principal>
+      <Dependent Role="q_sinavSonuc">
+        <PropertyRef Name="userid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__q_soru__kategori__1AD3FDA4">
+    <End Role="q_kategori" Type="Self.q_kategori" Multiplicity="0..1" />
+    <End Role="q_soru" Type="Self.q_soru" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="q_kategori">
+        <PropertyRef Name="kategoriId" />
+      </Principal>
+      <Dependent Role="q_soru">
+        <PropertyRef Name="kategoriId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="quizAppModelStoreContainer">
+    <EntitySet Name="q_cevap" EntityType="Self.q_cevap" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="q_kategori" EntityType="Self.q_kategori" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="q_kullanici" EntityType="Self.q_kullanici" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="q_sinavSonuc" EntityType="Self.q_sinavSonuc" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="q_soru" EntityType="Self.q_soru" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__q_cevap__soruId__1DB06A4F" Association="Self.FK__q_cevap__soruId__1DB06A4F">
+      <End Role="q_soru" EntitySet="q_soru" />
+      <End Role="q_cevap" EntitySet="q_cevap" />
+    </AssociationSet>
+    <AssociationSet Name="FK__q_sinavSo__useri__208CD6FA" Association="Self.FK__q_sinavSo__useri__208CD6FA">
+      <End Role="q_kullanici" EntitySet="q_kullanici" />
+      <End Role="q_sinavSonuc" EntitySet="q_sinavSonuc" />
+    </AssociationSet>
+    <AssociationSet Name="FK__q_soru__kategori__1AD3FDA4" Association="Self.FK__q_soru__kategori__1AD3FDA4">
+      <End Role="q_kategori" EntitySet="q_kategori" />
+      <End Role="q_soru" EntitySet="q_soru" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

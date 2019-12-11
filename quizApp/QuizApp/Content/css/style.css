@@ -1,0 +1,19 @@
+﻿
+body {
+    overflow-x: hidden;
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+}
+
+
+.card-title {
+    margin-bottom: 50px;
+}
+
+.quizCevap:hover {
+    background-color: rgb(177, 176, 176);
+}
+
+#soruHazirla {
+    padding-top: 30px;
+}

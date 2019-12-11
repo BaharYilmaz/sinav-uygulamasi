@@ -1,0 +1,83 @@
+﻿
+@{
+    ViewBag.Title = "SoruHazırla";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="row">
+    <div class="col-sm-9 col-md-7 col-lg-5 mx-auto " id="soruHazirla">
+        <div class="card card-signin my-5">
+            <div class="card-body">
+                <h5 class="text-center"><b>SORU HAZIRLA</b></h5>
+                <br /><br />
+                @using (Html.BeginForm("Login", "Security", FormMethod.Post))
+                {     /*for döncek*/
+                    <div class="form-label-group">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label><b>Kategori Seçiniz:</b></label>
+                            </div>
+                            <div class="col-md-6">
+                                <select class="form-control" name="kategori">
+                                    <option value="American">American flamingo</option>
+                                    <option value="Greater">Greater flamingo</option>
+                                    <option value="Lesser">Lesser flamingo</option>
+                                    <option selected value="Andean">Andean flamingo</option>
+                                    <option value="Chilean">Chilean flamingo</option>
+                                    <option value="James's">James's flamingo</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-label-group">
+                        <label><b>Sorunuzu Yazınız:</b></label>
+                        <textarea class="form-control"></textarea>
+
+                    </div>
+                    <br />
+                    <div>
+                        <label><b>Seçenekleri Yazınız,Doğru Cevabı İşaretleyiniz:</b></label>
+
+                        <div class="form-label-group">
+                            <div class="row">
+                                <div class="col-md-1"><input type="radio"></div>
+                                <div class="col-md-11"><input class="form-control" type="text" name="" /></div>
+                            </div>
+                        </div>
+                        <br />
+                        <div class="form-label-group">
+                            <div class="row">
+                                <div class="col-md-1"><input type="radio"></div>
+                                <div class="col-md-11"><input class="form-control" type="text" name="" /></div>
+                            </div>
+                        </div>
+                        <br />
+                        <div class="form-label-group">
+                            <div class="row">
+                                <div class="col-md-1"><input type="radio"></div>
+                                <div class="col-md-11"><input class="form-control" type="text" name="" /></div>
+                            </div>
+                        </div>
+                        <br />
+                        <div class="form-label-group">
+                            <div class="row">
+                                <div class="col-md-1"><input type="radio"></div>
+                                <div class="col-md-11"><input class="form-control" type="text" name="" /></div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <br /><br />
+                    <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Kaydet</button>
+                    <hr class="my-4">
+                }
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+

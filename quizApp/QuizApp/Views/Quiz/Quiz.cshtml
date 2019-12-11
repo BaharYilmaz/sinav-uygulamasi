@@ -1,0 +1,62 @@
+﻿
+@{
+    ViewBag.Title = "Quiz";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+    <div class="row">
+        <div class="col-sm-9 col-md-7 col-lg-5 mx-auto" style="margin-top: 80px;">
+            <div class="card card-signin my-5">
+                <div class="card-body">
+                    <h5 class="card-title text-center">Quiz Ekranı</h5>
+                    @using (Html.BeginForm("Login", "Security", FormMethod.Post))
+                    {     /*for döncek*/
+                        <div class="form-label-group">
+                            <h3>
+                                soru
+                                @*@Html.LabelFor(m => m.Ad)*@
+                            </h3>
+                        </div>
+                        <br />
+                        <div class="form-label-group">
+                            <a class="btn quizCevap " href="//soru kontrol" >
+                                cevap1
+                                @*@Html.LabelFor(m => m.Ad)*@
+                            </a>
+                        </div>
+                        <br />
+                        <div class="form-label-group">
+                            <a class="btn quizCevap " href="//soru kontrol">
+                                cevap1
+                                @*@Html.LabelFor(m => m.Ad)*@
+                            </a>
+                        </div>
+                        <br />
+                        <div class="form-label-group">
+                            <a class="btn quizCevap" href="//soru kontrol">
+                                cevap1
+                                @*@Html.LabelFor(m => m.Ad)*@
+                            </a>
+                        </div>
+                        <br />
+                        <div class="form-label-group">
+                            <a class="btn quizCevap" href="//soru kontrol">
+                                cevap1
+                                @*@Html.LabelFor(m => m.Ad)*@
+                            </a>
+                        </div>
+
+                        <br /><br />
+                        <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Next</button>
+                        <hr class="my-4">
+                    }
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+@*jquery kodu gerekli
+cevaba tıkladığında kontrol edicek
+rengi değişcek*@

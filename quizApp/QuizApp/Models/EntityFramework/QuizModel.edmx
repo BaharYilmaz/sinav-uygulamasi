@@ -1,0 +1,310 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="quizAppModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="q_cevap">
+          <Key>
+            <PropertyRef Name="cevapId" />
+          </Key>
+          <Property Name="cevapId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="soruId" Type="int" />
+          <Property Name="cevap" Type="nvarchar" MaxLength="100" />
+          <Property Name="dogruCvp" Type="bit" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'quizApp.dbo.q_genelDurum' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="q_genelDurum">
+          <Property Name="userid" Type="int" />
+          <Property Name="genelPuan" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="sinavID" Type="int" />
+        </EntityType>-->
+        <EntityType Name="q_kategori">
+          <Key>
+            <PropertyRef Name="kategoriId" />
+          </Key>
+          <Property Name="kategoriId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="kategori" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="q_kullanici">
+          <Key>
+            <PropertyRef Name="userid" />
+          </Key>
+          <Property Name="userid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="username" Type="nvarchar" MaxLength="50" />
+          <Property Name="password" Type="nvarchar" MaxLength="20" />
+          <Property Name="rol" Type="bit" />
+        </EntityType>
+        <EntityType Name="q_sinavSonuc">
+          <Key>
+            <PropertyRef Name="sinavId" />
+          </Key>
+          <Property Name="sinavId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="userid" Type="int" />
+          <Property Name="soruId" Type="int" />
+          <Property Name="cevapId" Type="int" />
+          <Property Name="dogruMu" Type="bit" />
+          <Property Name="kategoriId" Type="int" />
+          <Property Name="puan" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="sinavTarih" Type="date" />
+        </EntityType>
+        <EntityType Name="q_soru">
+          <Key>
+            <PropertyRef Name="soruId" />
+          </Key>
+          <Property Name="soruId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="soru" Type="image" />
+          <Property Name="derece" Type="int" />
+          <Property Name="kategoriId" Type="int" />
+        </EntityType>
+        <Association Name="FK__q_cevap__soruId__1DB06A4F">
+          <End Role="q_soru" Type="Self.q_soru" Multiplicity="0..1" />
+          <End Role="q_cevap" Type="Self.q_cevap" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="q_soru">
+              <PropertyRef Name="soruId" />
+            </Principal>
+            <Dependent Role="q_cevap">
+              <PropertyRef Name="soruId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__q_sinavSo__useri__208CD6FA">
+          <End Role="q_kullanici" Type="Self.q_kullanici" Multiplicity="0..1" />
+          <End Role="q_sinavSonuc" Type="Self.q_sinavSonuc" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="q_kullanici">
+              <PropertyRef Name="userid" />
+            </Principal>
+            <Dependent Role="q_sinavSonuc">
+              <PropertyRef Name="userid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__q_soru__kategori__1AD3FDA4">
+          <End Role="q_kategori" Type="Self.q_kategori" Multiplicity="0..1" />
+          <End Role="q_soru" Type="Self.q_soru" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="q_kategori">
+              <PropertyRef Name="kategoriId" />
+            </Principal>
+            <Dependent Role="q_soru">
+              <PropertyRef Name="kategoriId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="quizAppModelStoreContainer">
+          <EntitySet Name="q_cevap" EntityType="Self.q_cevap" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="q_kategori" EntityType="Self.q_kategori" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="q_kullanici" EntityType="Self.q_kullanici" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="q_sinavSonuc" EntityType="Self.q_sinavSonuc" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="q_soru" EntityType="Self.q_soru" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__q_cevap__soruId__1DB06A4F" Association="Self.FK__q_cevap__soruId__1DB06A4F">
+            <End Role="q_soru" EntitySet="q_soru" />
+            <End Role="q_cevap" EntitySet="q_cevap" />
+          </AssociationSet>
+          <AssociationSet Name="FK__q_sinavSo__useri__208CD6FA" Association="Self.FK__q_sinavSo__useri__208CD6FA">
+            <End Role="q_kullanici" EntitySet="q_kullanici" />
+            <End Role="q_sinavSonuc" EntitySet="q_sinavSonuc" />
+          </AssociationSet>
+          <AssociationSet Name="FK__q_soru__kategori__1AD3FDA4" Association="Self.FK__q_soru__kategori__1AD3FDA4">
+            <End Role="q_kategori" EntitySet="q_kategori" />
+            <End Role="q_soru" EntitySet="q_soru" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="quizAppModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="quizAppEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="q_cevap" EntityType="quizAppModel.q_cevap" />
+          <EntitySet Name="q_kategori" EntityType="quizAppModel.q_kategori" />
+          <EntitySet Name="q_kullanici" EntityType="quizAppModel.q_kullanici" />
+          <EntitySet Name="q_soru" EntityType="quizAppModel.q_soru" />
+          <AssociationSet Name="FK__q_cevap__soruId__1DB06A4F" Association="quizAppModel.FK__q_cevap__soruId__1DB06A4F">
+            <End Role="q_soru" EntitySet="q_soru" />
+            <End Role="q_cevap" EntitySet="q_cevap" />
+          </AssociationSet>
+          <AssociationSet Name="FK__q_soru__kategori__1AD3FDA4" Association="quizAppModel.FK__q_soru__kategori__1AD3FDA4">
+            <End Role="q_kategori" EntitySet="q_kategori" />
+            <End Role="q_soru" EntitySet="q_soru" />
+          </AssociationSet>
+          <EntitySet Name="q_sinavSonuc" EntityType="quizAppModel.q_sinavSonuc" />
+          <AssociationSet Name="FK__q_sinavSo__useri__208CD6FA" Association="quizAppModel.FK__q_sinavSo__useri__208CD6FA">
+            <End Role="q_kullanici" EntitySet="q_kullanici" />
+            <End Role="q_sinavSonuc" EntitySet="q_sinavSonuc" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="q_cevap">
+          <Key>
+            <PropertyRef Name="cevapId" />
+          </Key>
+          <Property Name="cevapId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="soruId" Type="Int32" />
+          <Property Name="cevap" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="dogruCvp" Type="Boolean" />
+          <NavigationProperty Name="q_soru" Relationship="quizAppModel.FK__q_cevap__soruId__1DB06A4F" FromRole="q_cevap" ToRole="q_soru" />
+        </EntityType>
+        <EntityType Name="q_kategori">
+          <Key>
+            <PropertyRef Name="kategoriId" />
+          </Key>
+          <Property Name="kategoriId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="kategori" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="q_soru" Relationship="quizAppModel.FK__q_soru__kategori__1AD3FDA4" FromRole="q_kategori" ToRole="q_soru" />
+        </EntityType>
+        <EntityType Name="q_kullanici">
+          <Key>
+            <PropertyRef Name="userid" />
+          </Key>
+          <Property Name="userid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="username" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="password" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="rol" Type="Boolean" />
+          <NavigationProperty Name="q_sinavSonuc" Relationship="quizAppModel.FK__q_sinavSo__useri__208CD6FA" FromRole="q_kullanici" ToRole="q_sinavSonuc" />
+        </EntityType>
+        <EntityType Name="q_soru">
+          <Key>
+            <PropertyRef Name="soruId" />
+          </Key>
+          <Property Name="soruId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="soru" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="derece" Type="Int32" />
+          <Property Name="kategoriId" Type="Int32" />
+          <NavigationProperty Name="q_cevap" Relationship="quizAppModel.FK__q_cevap__soruId__1DB06A4F" FromRole="q_soru" ToRole="q_cevap" />
+          <NavigationProperty Name="q_kategori" Relationship="quizAppModel.FK__q_soru__kategori__1AD3FDA4" FromRole="q_soru" ToRole="q_kategori" />
+        </EntityType>
+        <Association Name="FK__q_cevap__soruId__1DB06A4F">
+          <End Type="quizAppModel.q_soru" Role="q_soru" Multiplicity="0..1" />
+          <End Type="quizAppModel.q_cevap" Role="q_cevap" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="q_soru">
+              <PropertyRef Name="soruId" />
+            </Principal>
+            <Dependent Role="q_cevap">
+              <PropertyRef Name="soruId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__q_soru__kategori__1AD3FDA4">
+          <End Type="quizAppModel.q_kategori" Role="q_kategori" Multiplicity="0..1" />
+          <End Type="quizAppModel.q_soru" Role="q_soru" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="q_kategori">
+              <PropertyRef Name="kategoriId" />
+            </Principal>
+            <Dependent Role="q_soru">
+              <PropertyRef Name="kategoriId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="q_sinavSonuc">
+          <Key>
+            <PropertyRef Name="sinavId" />
+          </Key>
+          <Property Name="sinavId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="userid" Type="Int32" />
+          <Property Name="soruId" Type="Int32" />
+          <Property Name="cevapId" Type="Int32" />
+          <Property Name="dogruMu" Type="Boolean" />
+          <Property Name="kategoriId" Type="Int32" />
+          <Property Name="puan" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="sinavTarih" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="q_kullanici" Relationship="quizAppModel.FK__q_sinavSo__useri__208CD6FA" FromRole="q_sinavSonuc" ToRole="q_kullanici" />
+        </EntityType>
+        <Association Name="FK__q_sinavSo__useri__208CD6FA">
+          <End Type="quizAppModel.q_kullanici" Role="q_kullanici" Multiplicity="0..1" />
+          <End Type="quizAppModel.q_sinavSonuc" Role="q_sinavSonuc" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="q_kullanici">
+              <PropertyRef Name="userid" />
+            </Principal>
+            <Dependent Role="q_sinavSonuc">
+              <PropertyRef Name="userid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="quizAppModelStoreContainer" CdmEntityContainer="quizAppEntities">
+          <EntitySetMapping Name="q_cevap">
+            <EntityTypeMapping TypeName="quizAppModel.q_cevap">
+              <MappingFragment StoreEntitySet="q_cevap">
+                <ScalarProperty Name="dogruCvp" ColumnName="dogruCvp" />
+                <ScalarProperty Name="cevap" ColumnName="cevap" />
+                <ScalarProperty Name="soruId" ColumnName="soruId" />
+                <ScalarProperty Name="cevapId" ColumnName="cevapId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="q_kategori">
+            <EntityTypeMapping TypeName="quizAppModel.q_kategori">
+              <MappingFragment StoreEntitySet="q_kategori">
+                <ScalarProperty Name="kategori" ColumnName="kategori" />
+                <ScalarProperty Name="kategoriId" ColumnName="kategoriId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="q_kullanici">
+            <EntityTypeMapping TypeName="quizAppModel.q_kullanici">
+              <MappingFragment StoreEntitySet="q_kullanici">
+                <ScalarProperty Name="rol" ColumnName="rol" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="userid" ColumnName="userid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="q_soru">
+            <EntityTypeMapping TypeName="quizAppModel.q_soru">
+              <MappingFragment StoreEntitySet="q_soru">
+                <ScalarProperty Name="kategoriId" ColumnName="kategoriId" />
+                <ScalarProperty Name="derece" ColumnName="derece" />
+                <ScalarProperty Name="soru" ColumnName="soru" />
+                <ScalarProperty Name="soruId" ColumnName="soruId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="q_sinavSonuc">
+            <EntityTypeMapping TypeName="quizAppModel.q_sinavSonuc">
+              <MappingFragment StoreEntitySet="q_sinavSonuc">
+                <ScalarProperty Name="sinavTarih" ColumnName="sinavTarih" />
+                <ScalarProperty Name="puan" ColumnName="puan" />
+                <ScalarProperty Name="kategoriId" ColumnName="kategoriId" />
+                <ScalarProperty Name="dogruMu" ColumnName="dogruMu" />
+                <ScalarProperty Name="cevapId" ColumnName="cevapId" />
+                <ScalarProperty Name="soruId" ColumnName="soruId" />
+                <ScalarProperty Name="userid" ColumnName="userid" />
+                <ScalarProperty Name="sinavId" ColumnName="sinavId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
