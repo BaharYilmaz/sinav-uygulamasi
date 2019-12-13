@@ -17,16 +17,16 @@ namespace QuizApp.Models.EntityFramework
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public q_soru()
         {
-            this.q_cevap = new HashSet<q_cevap>();
+            this.q_secenek = new HashSet<q_secenek>();
         }
     
-        public int soruId { get; set; }
-        public byte[] soru { get; set; }
+        public System.Guid soruUniq { get; set; }
+        public string soru { get; set; }
         public Nullable<int> derece { get; set; }
         public Nullable<int> kategoriId { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<q_cevap> q_cevap { get; set; }
         public virtual q_kategori q_kategori { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<q_secenek> q_secenek { get; set; }
     }
 }

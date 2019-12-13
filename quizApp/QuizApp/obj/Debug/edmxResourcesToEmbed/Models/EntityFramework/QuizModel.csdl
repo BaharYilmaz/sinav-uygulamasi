@@ -1,41 +1,31 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="quizAppModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
   <EntityContainer Name="quizAppEntities" annotation:LazyLoadingEnabled="true">
-    <EntitySet Name="q_cevap" EntityType="quizAppModel.q_cevap" />
     <EntitySet Name="q_kategori" EntityType="quizAppModel.q_kategori" />
     <EntitySet Name="q_kullanici" EntityType="quizAppModel.q_kullanici" />
-    <EntitySet Name="q_soru" EntityType="quizAppModel.q_soru" />
-    <AssociationSet Name="FK__q_cevap__soruId__1DB06A4F" Association="quizAppModel.FK__q_cevap__soruId__1DB06A4F">
-      <End Role="q_soru" EntitySet="q_soru" />
-      <End Role="q_cevap" EntitySet="q_cevap" />
-    </AssociationSet>
-    <AssociationSet Name="FK__q_soru__kategori__1AD3FDA4" Association="quizAppModel.FK__q_soru__kategori__1AD3FDA4">
-      <End Role="q_kategori" EntitySet="q_kategori" />
-      <End Role="q_soru" EntitySet="q_soru" />
-    </AssociationSet>
     <EntitySet Name="q_sinavSonuc" EntityType="quizAppModel.q_sinavSonuc" />
     <AssociationSet Name="FK__q_sinavSo__useri__208CD6FA" Association="quizAppModel.FK__q_sinavSo__useri__208CD6FA">
       <End Role="q_kullanici" EntitySet="q_kullanici" />
       <End Role="q_sinavSonuc" EntitySet="q_sinavSonuc" />
     </AssociationSet>
+    <EntitySet Name="q_secenek" EntityType="quizAppModel.q_secenek" />
+    <EntitySet Name="q_soru" EntityType="quizAppModel.q_soru" />
+    <AssociationSet Name="FK__q_soru__kategori__531856C7" Association="quizAppModel.FK__q_soru__kategori__531856C7">
+      <End Role="q_kategori" EntitySet="q_kategori" />
+      <End Role="q_soru" EntitySet="q_soru" />
+    </AssociationSet>
+    <AssociationSet Name="FK__q_secenek__soruU__55F4C372" Association="quizAppModel.FK__q_secenek__soruU__55F4C372">
+      <End Role="q_soru" EntitySet="q_soru" />
+      <End Role="q_secenek" EntitySet="q_secenek" />
+    </AssociationSet>
   </EntityContainer>
-  <EntityType Name="q_cevap">
-    <Key>
-      <PropertyRef Name="cevapId" />
-    </Key>
-    <Property Name="cevapId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="soruId" Type="Int32" />
-    <Property Name="cevap" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-    <Property Name="dogruCvp" Type="Boolean" />
-    <NavigationProperty Name="q_soru" Relationship="quizAppModel.FK__q_cevap__soruId__1DB06A4F" FromRole="q_cevap" ToRole="q_soru" />
-  </EntityType>
   <EntityType Name="q_kategori">
     <Key>
       <PropertyRef Name="kategoriId" />
     </Key>
     <Property Name="kategoriId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="kategori" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <NavigationProperty Name="q_soru" Relationship="quizAppModel.FK__q_soru__kategori__1AD3FDA4" FromRole="q_kategori" ToRole="q_soru" />
+    <NavigationProperty Name="q_soru" Relationship="quizAppModel.FK__q_soru__kategori__531856C7" FromRole="q_kategori" ToRole="q_soru" />
   </EntityType>
   <EntityType Name="q_kullanici">
     <Key>
@@ -47,41 +37,6 @@
     <Property Name="rol" Type="Boolean" />
     <NavigationProperty Name="q_sinavSonuc" Relationship="quizAppModel.FK__q_sinavSo__useri__208CD6FA" FromRole="q_kullanici" ToRole="q_sinavSonuc" />
   </EntityType>
-  <EntityType Name="q_soru">
-    <Key>
-      <PropertyRef Name="soruId" />
-    </Key>
-    <Property Name="soruId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="soru" Type="Binary" MaxLength="Max" FixedLength="false" />
-    <Property Name="derece" Type="Int32" />
-    <Property Name="kategoriId" Type="Int32" />
-    <NavigationProperty Name="q_cevap" Relationship="quizAppModel.FK__q_cevap__soruId__1DB06A4F" FromRole="q_soru" ToRole="q_cevap" />
-    <NavigationProperty Name="q_kategori" Relationship="quizAppModel.FK__q_soru__kategori__1AD3FDA4" FromRole="q_soru" ToRole="q_kategori" />
-  </EntityType>
-  <Association Name="FK__q_cevap__soruId__1DB06A4F">
-    <End Type="quizAppModel.q_soru" Role="q_soru" Multiplicity="0..1" />
-    <End Type="quizAppModel.q_cevap" Role="q_cevap" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="q_soru">
-        <PropertyRef Name="soruId" />
-      </Principal>
-      <Dependent Role="q_cevap">
-        <PropertyRef Name="soruId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK__q_soru__kategori__1AD3FDA4">
-    <End Type="quizAppModel.q_kategori" Role="q_kategori" Multiplicity="0..1" />
-    <End Type="quizAppModel.q_soru" Role="q_soru" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="q_kategori">
-        <PropertyRef Name="kategoriId" />
-      </Principal>
-      <Dependent Role="q_soru">
-        <PropertyRef Name="kategoriId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <EntityType Name="q_sinavSonuc">
     <Key>
       <PropertyRef Name="sinavId" />
@@ -105,6 +60,54 @@
       </Principal>
       <Dependent Role="q_sinavSonuc">
         <PropertyRef Name="userid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="q_secenek">
+    <Key>
+      <PropertyRef Name="cevapId" />
+    </Key>
+    <Property Name="cevapId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="cevap1" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="cevap2" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="cevap3" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="cevap4" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="dogruCvp" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="soruUniq" Type="Guid" />
+    <NavigationProperty Name="q_soru" Relationship="quizAppModel.FK__q_secenek__soruU__55F4C372" FromRole="q_secenek" ToRole="q_soru" />
+  </EntityType>
+  <EntityType Name="q_soru">
+    <Key>
+      <PropertyRef Name="soruUniq" />
+    </Key>
+    <Property Name="soruUniq" Type="Guid" Nullable="false" />
+    <Property Name="soru" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="derece" Type="Int32" />
+    <Property Name="kategoriId" Type="Int32" />
+    <NavigationProperty Name="q_kategori" Relationship="quizAppModel.FK__q_soru__kategori__531856C7" FromRole="q_soru" ToRole="q_kategori" />
+    <NavigationProperty Name="q_secenek" Relationship="quizAppModel.FK__q_secenek__soruU__55F4C372" FromRole="q_soru" ToRole="q_secenek" />
+  </EntityType>
+  <Association Name="FK__q_soru__kategori__531856C7">
+    <End Type="quizAppModel.q_kategori" Role="q_kategori" Multiplicity="0..1" />
+    <End Type="quizAppModel.q_soru" Role="q_soru" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="q_kategori">
+        <PropertyRef Name="kategoriId" />
+      </Principal>
+      <Dependent Role="q_soru">
+        <PropertyRef Name="kategoriId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__q_secenek__soruU__55F4C372">
+    <End Type="quizAppModel.q_soru" Role="q_soru" Multiplicity="0..1" />
+    <End Type="quizAppModel.q_secenek" Role="q_secenek" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="q_soru">
+        <PropertyRef Name="soruUniq" />
+      </Principal>
+      <Dependent Role="q_secenek">
+        <PropertyRef Name="soruUniq" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

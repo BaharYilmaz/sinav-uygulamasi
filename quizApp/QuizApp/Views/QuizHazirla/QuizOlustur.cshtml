@@ -1,4 +1,5 @@
-﻿
+﻿@model QuizApp.ViewModel.viewModel
+
 @{
     ViewBag.Title = "QuizOlustur";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -11,61 +12,70 @@
             <div class="card-body">
                 <h5 class="text-center"><b>SORU HAZIRLA</b></h5>
                 <br /><br />
-                @using (Html.BeginForm("Login", "Security", FormMethod.Post))
-                {     /*for döncek*/
+
+                @using (Html.BeginForm("SoruKaydet", "QuizHazirla", FormMethod.Post))
+                {
                     <div class="form-label-group">
                         <div class="row">
                             <div class="col-md-6">
                                 <label><b>Kategori Seçiniz:</b></label>
                             </div>
                             <div class="col-md-6">
-                                <select class="form-control" name="kategori">
-                                    <option value="American">American flamingo</option>
-                                    <option value="Greater">Greater flamingo</option>
-                                    <option value="Lesser">Lesser flamingo</option>
-                                    <option selected value="Andean">Andean flamingo</option>
-                                    <option value="Chilean">Chilean flamingo</option>
-                                    <option value="James's">James's flamingo</option>
-                                </select>
+                                @Html.DropDownListFor(m => m.Soru.kategoriId, new SelectList(Model.Kategori, "kategoriId", "kategori"), "Kategori", new { @class = "form-control" })
+
                             </div>
                         </div>
                     </div>
+
                     <div class="form-label-group">
                         <label><b>Sorunuzu Yazınız:</b></label>
-                        <textarea class="form-control"></textarea>
+                        @Html.TextAreaFor(m => m.Soru.soru, new { @class = "form-control" })
+
 
                     </div>
                     <br />
+
                     <div>
                         <label><b>Seçenekleri Yazınız,Doğru Cevabı İşaretleyiniz:</b></label>
+                        <div class="form-label-group">
+                            <div class="row">
+                                <input type="radio" class="radioBtn"/>
+                                @Html.RadioButtonFor(m => m.Secenek.dogruCvp, 1, new { @class = "form-control col-md-1" })
+                                @Html.TextBoxFor(m => m.Secenek.cevap1, new { @class = "form-control col-md-11" })
+                            </div>
+                        </div>
+
+                        <br />
+
+
+                        <div class="form-label-group">
+
+                            <div class="row">
+                                <input type="radio" class="radioBtn" />
+                                @Html.RadioButtonFor(m => m.Secenek.dogruCvp, 1, new { @class = "form-control col-md-1" })
+                                @Html.TextBoxFor(m => m.Secenek.cevap2, new { @class = "form-control col-md-11" })
+                            </div>
+                        </div>
+
+                        <br />
+                        <div class="form-label-group">
+                            <div class="row">
+                                <input type="radio" class="radioBtn" />
+                                @Html.RadioButtonFor(m => m.Secenek.dogruCvp, 1, new { @class = "form-control col-md-1" })
+                                @Html.TextBoxFor(m => m.Secenek.cevap3, new { @class = "form-control col-md-11" })
+                            </div>
+                        </div>
+
+                        <br />
 
                         <div class="form-label-group">
                             <div class="row">
-                                <div class="col-md-1"><input type="radio"></div>
-                                <div class="col-md-11"><input class="form-control" type="text" name="" /></div>
+                                <input type="radio" class="radioBtn" />
+                                @Html.RadioButtonFor(m => m.Secenek.dogruCvp, 1, new { @class = "form-control col-md-1" })
+                                @Html.TextBoxFor(m => m.Secenek.cevap4, new { @class = "form-control col-md-11" })
                             </div>
                         </div>
-                        <br />
-                        <div class="form-label-group">
-                            <div class="row">
-                                <div class="col-md-1"><input type="radio"></div>
-                                <div class="col-md-11"><input class="form-control" type="text" name="" /></div>
-                            </div>
-                        </div>
-                        <br />
-                        <div class="form-label-group">
-                            <div class="row">
-                                <div class="col-md-1"><input type="radio"></div>
-                                <div class="col-md-11"><input class="form-control" type="text" name="" /></div>
-                            </div>
-                        </div>
-                        <br />
-                        <div class="form-label-group">
-                            <div class="row">
-                                <div class="col-md-1"><input type="radio"></div>
-                                <div class="col-md-11"><input class="form-control" type="text" name="" /></div>
-                            </div>
-                        </div>
+                       
                     </div>
 
 
@@ -78,6 +88,18 @@
         </div>
     </div>
 </div>
+
+
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+        crossorigin="anonymous"></script>
+<script>
+    $(document).ready(function () {
+        $(".radioBtn").click(function () {
+            
+        });
+    });
+</script>
 
 
 

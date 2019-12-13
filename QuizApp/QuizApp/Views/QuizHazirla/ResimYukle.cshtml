@@ -1,0 +1,24 @@
+﻿
+@{
+    ViewBag.Title = "ResimYukle";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+
+<h2>ResimYukle</h2>
+
+@{
+    var image = WebImage.GetImageFromRequest("uploadfile");
+    if (image != null)
+    {
+        image.Write();
+    }
+}

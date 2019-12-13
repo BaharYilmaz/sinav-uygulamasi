@@ -5,22 +5,6 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="quizAppModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityType Name="q_cevap">
-          <Key>
-            <PropertyRef Name="cevapId" />
-          </Key>
-          <Property Name="cevapId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="soruId" Type="int" />
-          <Property Name="cevap" Type="nvarchar" MaxLength="100" />
-          <Property Name="dogruCvp" Type="bit" />
-        </EntityType>
-        <!--Errors Found During Generation:
-warning 6013: The table/view 'quizApp.dbo.q_genelDurum' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
-        <EntityType Name="q_genelDurum">
-          <Property Name="userid" Type="int" />
-          <Property Name="genelPuan" Type="decimal" Precision="18" Scale="0" />
-          <Property Name="sinavID" Type="int" />
-        </EntityType>-->
         <EntityType Name="q_kategori">
           <Key>
             <PropertyRef Name="kategoriId" />
@@ -37,6 +21,18 @@ warning 6013: The table/view 'quizApp.dbo.q_genelDurum' does not have a primary 
           <Property Name="password" Type="nvarchar" MaxLength="20" />
           <Property Name="rol" Type="bit" />
         </EntityType>
+        <EntityType Name="q_secenek">
+          <Key>
+            <PropertyRef Name="cevapId" />
+          </Key>
+          <Property Name="cevapId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="cevap1" Type="nvarchar" MaxLength="100" />
+          <Property Name="cevap2" Type="nvarchar" MaxLength="100" />
+          <Property Name="cevap3" Type="nvarchar" MaxLength="100" />
+          <Property Name="cevap4" Type="nvarchar" MaxLength="100" />
+          <Property Name="dogruCvp" Type="nvarchar" MaxLength="100" />
+          <Property Name="soruUniq" Type="uniqueidentifier" />
+        </EntityType>
         <EntityType Name="q_sinavSonuc">
           <Key>
             <PropertyRef Name="sinavId" />
@@ -52,26 +48,26 @@ warning 6013: The table/view 'quizApp.dbo.q_genelDurum' does not have a primary 
         </EntityType>
         <EntityType Name="q_soru">
           <Key>
-            <PropertyRef Name="soruId" />
+            <PropertyRef Name="soruUniq" />
           </Key>
-          <Property Name="soruId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="soru" Type="image" />
+          <Property Name="soruUniq" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="soru" Type="nvarchar" MaxLength="250" />
           <Property Name="derece" Type="int" />
           <Property Name="kategoriId" Type="int" />
         </EntityType>
-        <Association Name="FK__q_cevap__soruId__1DB06A4F">
+        <Association Name="FK__q_secenek__soruU__55F4C372">
           <End Role="q_soru" Type="Self.q_soru" Multiplicity="0..1" />
-          <End Role="q_cevap" Type="Self.q_cevap" Multiplicity="*" />
+          <End Role="q_secenek" Type="Self.q_secenek" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="q_soru">
-              <PropertyRef Name="soruId" />
+              <PropertyRef Name="soruUniq" />
             </Principal>
-            <Dependent Role="q_cevap">
-              <PropertyRef Name="soruId" />
+            <Dependent Role="q_secenek">
+              <PropertyRef Name="soruUniq" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__q_sinavSo__useri__208CD6FA">
+        <Association Name="FK__q_sinavSo__useri__2FCF1A8A">
           <End Role="q_kullanici" Type="Self.q_kullanici" Multiplicity="0..1" />
           <End Role="q_sinavSonuc" Type="Self.q_sinavSonuc" Multiplicity="*" />
           <ReferentialConstraint>
@@ -83,7 +79,7 @@ warning 6013: The table/view 'quizApp.dbo.q_genelDurum' does not have a primary 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__q_soru__kategori__1AD3FDA4">
+        <Association Name="FK__q_soru__kategori__531856C7">
           <End Role="q_kategori" Type="Self.q_kategori" Multiplicity="0..1" />
           <End Role="q_soru" Type="Self.q_soru" Multiplicity="*" />
           <ReferentialConstraint>
@@ -96,20 +92,20 @@ warning 6013: The table/view 'quizApp.dbo.q_genelDurum' does not have a primary 
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="quizAppModelStoreContainer">
-          <EntitySet Name="q_cevap" EntityType="Self.q_cevap" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="q_kategori" EntityType="Self.q_kategori" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="q_kullanici" EntityType="Self.q_kullanici" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="q_secenek" EntityType="Self.q_secenek" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="q_sinavSonuc" EntityType="Self.q_sinavSonuc" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="q_soru" EntityType="Self.q_soru" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK__q_cevap__soruId__1DB06A4F" Association="Self.FK__q_cevap__soruId__1DB06A4F">
+          <AssociationSet Name="FK__q_secenek__soruU__55F4C372" Association="Self.FK__q_secenek__soruU__55F4C372">
             <End Role="q_soru" EntitySet="q_soru" />
-            <End Role="q_cevap" EntitySet="q_cevap" />
+            <End Role="q_secenek" EntitySet="q_secenek" />
           </AssociationSet>
-          <AssociationSet Name="FK__q_sinavSo__useri__208CD6FA" Association="Self.FK__q_sinavSo__useri__208CD6FA">
+          <AssociationSet Name="FK__q_sinavSo__useri__2FCF1A8A" Association="Self.FK__q_sinavSo__useri__2FCF1A8A">
             <End Role="q_kullanici" EntitySet="q_kullanici" />
             <End Role="q_sinavSonuc" EntitySet="q_sinavSonuc" />
           </AssociationSet>
-          <AssociationSet Name="FK__q_soru__kategori__1AD3FDA4" Association="Self.FK__q_soru__kategori__1AD3FDA4">
+          <AssociationSet Name="FK__q_soru__kategori__531856C7" Association="Self.FK__q_soru__kategori__531856C7">
             <End Role="q_kategori" EntitySet="q_kategori" />
             <End Role="q_soru" EntitySet="q_soru" />
           </AssociationSet>
@@ -119,41 +115,31 @@ warning 6013: The table/view 'quizApp.dbo.q_genelDurum' does not have a primary 
     <edmx:ConceptualModels>
       <Schema Namespace="quizAppModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="quizAppEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="q_cevap" EntityType="quizAppModel.q_cevap" />
           <EntitySet Name="q_kategori" EntityType="quizAppModel.q_kategori" />
           <EntitySet Name="q_kullanici" EntityType="quizAppModel.q_kullanici" />
-          <EntitySet Name="q_soru" EntityType="quizAppModel.q_soru" />
-          <AssociationSet Name="FK__q_cevap__soruId__1DB06A4F" Association="quizAppModel.FK__q_cevap__soruId__1DB06A4F">
-            <End Role="q_soru" EntitySet="q_soru" />
-            <End Role="q_cevap" EntitySet="q_cevap" />
-          </AssociationSet>
-          <AssociationSet Name="FK__q_soru__kategori__1AD3FDA4" Association="quizAppModel.FK__q_soru__kategori__1AD3FDA4">
-            <End Role="q_kategori" EntitySet="q_kategori" />
-            <End Role="q_soru" EntitySet="q_soru" />
-          </AssociationSet>
           <EntitySet Name="q_sinavSonuc" EntityType="quizAppModel.q_sinavSonuc" />
           <AssociationSet Name="FK__q_sinavSo__useri__208CD6FA" Association="quizAppModel.FK__q_sinavSo__useri__208CD6FA">
             <End Role="q_kullanici" EntitySet="q_kullanici" />
             <End Role="q_sinavSonuc" EntitySet="q_sinavSonuc" />
           </AssociationSet>
+          <EntitySet Name="q_secenek" EntityType="quizAppModel.q_secenek" />
+          <EntitySet Name="q_soru" EntityType="quizAppModel.q_soru" />
+          <AssociationSet Name="FK__q_soru__kategori__531856C7" Association="quizAppModel.FK__q_soru__kategori__531856C7">
+            <End Role="q_kategori" EntitySet="q_kategori" />
+            <End Role="q_soru" EntitySet="q_soru" />
+          </AssociationSet>
+          <AssociationSet Name="FK__q_secenek__soruU__55F4C372" Association="quizAppModel.FK__q_secenek__soruU__55F4C372">
+            <End Role="q_soru" EntitySet="q_soru" />
+            <End Role="q_secenek" EntitySet="q_secenek" />
+          </AssociationSet>
         </EntityContainer>
-        <EntityType Name="q_cevap">
-          <Key>
-            <PropertyRef Name="cevapId" />
-          </Key>
-          <Property Name="cevapId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="soruId" Type="Int32" />
-          <Property Name="cevap" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="dogruCvp" Type="Boolean" />
-          <NavigationProperty Name="q_soru" Relationship="quizAppModel.FK__q_cevap__soruId__1DB06A4F" FromRole="q_cevap" ToRole="q_soru" />
-        </EntityType>
         <EntityType Name="q_kategori">
           <Key>
             <PropertyRef Name="kategoriId" />
           </Key>
           <Property Name="kategoriId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="kategori" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="q_soru" Relationship="quizAppModel.FK__q_soru__kategori__1AD3FDA4" FromRole="q_kategori" ToRole="q_soru" />
+          <NavigationProperty Name="q_soru" Relationship="quizAppModel.FK__q_soru__kategori__531856C7" FromRole="q_kategori" ToRole="q_soru" />
         </EntityType>
         <EntityType Name="q_kullanici">
           <Key>
@@ -165,41 +151,6 @@ warning 6013: The table/view 'quizApp.dbo.q_genelDurum' does not have a primary 
           <Property Name="rol" Type="Boolean" />
           <NavigationProperty Name="q_sinavSonuc" Relationship="quizAppModel.FK__q_sinavSo__useri__208CD6FA" FromRole="q_kullanici" ToRole="q_sinavSonuc" />
         </EntityType>
-        <EntityType Name="q_soru">
-          <Key>
-            <PropertyRef Name="soruId" />
-          </Key>
-          <Property Name="soruId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="soru" Type="Binary" MaxLength="Max" FixedLength="false" />
-          <Property Name="derece" Type="Int32" />
-          <Property Name="kategoriId" Type="Int32" />
-          <NavigationProperty Name="q_cevap" Relationship="quizAppModel.FK__q_cevap__soruId__1DB06A4F" FromRole="q_soru" ToRole="q_cevap" />
-          <NavigationProperty Name="q_kategori" Relationship="quizAppModel.FK__q_soru__kategori__1AD3FDA4" FromRole="q_soru" ToRole="q_kategori" />
-        </EntityType>
-        <Association Name="FK__q_cevap__soruId__1DB06A4F">
-          <End Type="quizAppModel.q_soru" Role="q_soru" Multiplicity="0..1" />
-          <End Type="quizAppModel.q_cevap" Role="q_cevap" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="q_soru">
-              <PropertyRef Name="soruId" />
-            </Principal>
-            <Dependent Role="q_cevap">
-              <PropertyRef Name="soruId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__q_soru__kategori__1AD3FDA4">
-          <End Type="quizAppModel.q_kategori" Role="q_kategori" Multiplicity="0..1" />
-          <End Type="quizAppModel.q_soru" Role="q_soru" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="q_kategori">
-              <PropertyRef Name="kategoriId" />
-            </Principal>
-            <Dependent Role="q_soru">
-              <PropertyRef Name="kategoriId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="q_sinavSonuc">
           <Key>
             <PropertyRef Name="sinavId" />
@@ -226,22 +177,60 @@ warning 6013: The table/view 'quizApp.dbo.q_genelDurum' does not have a primary 
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="q_secenek">
+          <Key>
+            <PropertyRef Name="cevapId" />
+          </Key>
+          <Property Name="cevapId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="cevap1" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="cevap2" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="cevap3" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="cevap4" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="dogruCvp" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="soruUniq" Type="Guid" />
+          <NavigationProperty Name="q_soru" Relationship="quizAppModel.FK__q_secenek__soruU__55F4C372" FromRole="q_secenek" ToRole="q_soru" />
+        </EntityType>
+        <EntityType Name="q_soru">
+          <Key>
+            <PropertyRef Name="soruUniq" />
+          </Key>
+          <Property Name="soruUniq" Type="Guid" Nullable="false" />
+          <Property Name="soru" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="derece" Type="Int32" />
+          <Property Name="kategoriId" Type="Int32" />
+          <NavigationProperty Name="q_kategori" Relationship="quizAppModel.FK__q_soru__kategori__531856C7" FromRole="q_soru" ToRole="q_kategori" />
+          <NavigationProperty Name="q_secenek" Relationship="quizAppModel.FK__q_secenek__soruU__55F4C372" FromRole="q_soru" ToRole="q_secenek" />
+        </EntityType>
+        <Association Name="FK__q_soru__kategori__531856C7">
+          <End Type="quizAppModel.q_kategori" Role="q_kategori" Multiplicity="0..1" />
+          <End Type="quizAppModel.q_soru" Role="q_soru" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="q_kategori">
+              <PropertyRef Name="kategoriId" />
+            </Principal>
+            <Dependent Role="q_soru">
+              <PropertyRef Name="kategoriId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__q_secenek__soruU__55F4C372">
+          <End Type="quizAppModel.q_soru" Role="q_soru" Multiplicity="0..1" />
+          <End Type="quizAppModel.q_secenek" Role="q_secenek" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="q_soru">
+              <PropertyRef Name="soruUniq" />
+            </Principal>
+            <Dependent Role="q_secenek">
+              <PropertyRef Name="soruUniq" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="quizAppModelStoreContainer" CdmEntityContainer="quizAppEntities">
-          <EntitySetMapping Name="q_cevap">
-            <EntityTypeMapping TypeName="quizAppModel.q_cevap">
-              <MappingFragment StoreEntitySet="q_cevap">
-                <ScalarProperty Name="dogruCvp" ColumnName="dogruCvp" />
-                <ScalarProperty Name="cevap" ColumnName="cevap" />
-                <ScalarProperty Name="soruId" ColumnName="soruId" />
-                <ScalarProperty Name="cevapId" ColumnName="cevapId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="q_kategori">
             <EntityTypeMapping TypeName="quizAppModel.q_kategori">
               <MappingFragment StoreEntitySet="q_kategori">
@@ -260,16 +249,6 @@ warning 6013: The table/view 'quizApp.dbo.q_genelDurum' does not have a primary 
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="q_soru">
-            <EntityTypeMapping TypeName="quizAppModel.q_soru">
-              <MappingFragment StoreEntitySet="q_soru">
-                <ScalarProperty Name="kategoriId" ColumnName="kategoriId" />
-                <ScalarProperty Name="derece" ColumnName="derece" />
-                <ScalarProperty Name="soru" ColumnName="soru" />
-                <ScalarProperty Name="soruId" ColumnName="soruId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="q_sinavSonuc">
             <EntityTypeMapping TypeName="quizAppModel.q_sinavSonuc">
               <MappingFragment StoreEntitySet="q_sinavSonuc">
@@ -281,6 +260,29 @@ warning 6013: The table/view 'quizApp.dbo.q_genelDurum' does not have a primary 
                 <ScalarProperty Name="soruId" ColumnName="soruId" />
                 <ScalarProperty Name="userid" ColumnName="userid" />
                 <ScalarProperty Name="sinavId" ColumnName="sinavId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="q_secenek">
+            <EntityTypeMapping TypeName="quizAppModel.q_secenek">
+              <MappingFragment StoreEntitySet="q_secenek">
+                <ScalarProperty Name="soruUniq" ColumnName="soruUniq" />
+                <ScalarProperty Name="dogruCvp" ColumnName="dogruCvp" />
+                <ScalarProperty Name="cevap4" ColumnName="cevap4" />
+                <ScalarProperty Name="cevap3" ColumnName="cevap3" />
+                <ScalarProperty Name="cevap2" ColumnName="cevap2" />
+                <ScalarProperty Name="cevap1" ColumnName="cevap1" />
+                <ScalarProperty Name="cevapId" ColumnName="cevapId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="q_soru">
+            <EntityTypeMapping TypeName="quizAppModel.q_soru">
+              <MappingFragment StoreEntitySet="q_soru">
+                <ScalarProperty Name="kategoriId" ColumnName="kategoriId" />
+                <ScalarProperty Name="derece" ColumnName="derece" />
+                <ScalarProperty Name="soru" ColumnName="soru" />
+                <ScalarProperty Name="soruUniq" ColumnName="soruUniq" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
