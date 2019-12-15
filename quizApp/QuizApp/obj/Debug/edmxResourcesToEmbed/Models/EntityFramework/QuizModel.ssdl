@@ -50,7 +50,7 @@
     <Property Name="derece" Type="int" />
     <Property Name="kategoriId" Type="int" />
   </EntityType>
-  <Association Name="FK__q_secenek__soruU__55F4C372">
+  <Association Name="FK__q_secenek__soruU__6CD828CA">
     <End Role="q_soru" Type="Self.q_soru" Multiplicity="0..1" />
     <End Role="q_secenek" Type="Self.q_secenek" Multiplicity="*" />
     <ReferentialConstraint>
@@ -74,7 +74,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__q_soru__kategori__531856C7">
+  <Association Name="FK__q_soru__kategori__69FBBC1F">
     <End Role="q_kategori" Type="Self.q_kategori" Multiplicity="0..1" />
     <End Role="q_soru" Type="Self.q_soru" Multiplicity="*" />
     <ReferentialConstraint>
@@ -92,7 +92,7 @@
     <EntitySet Name="q_secenek" EntityType="Self.q_secenek" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="q_sinavSonuc" EntityType="Self.q_sinavSonuc" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="q_soru" EntityType="Self.q_soru" Schema="dbo" store:Type="Tables" />
-    <AssociationSet Name="FK__q_secenek__soruU__55F4C372" Association="Self.FK__q_secenek__soruU__55F4C372">
+    <AssociationSet Name="FK__q_secenek__soruU__6CD828CA" Association="Self.FK__q_secenek__soruU__6CD828CA">
       <End Role="q_soru" EntitySet="q_soru" />
       <End Role="q_secenek" EntitySet="q_secenek" />
     </AssociationSet>
@@ -100,7 +100,7 @@
       <End Role="q_kullanici" EntitySet="q_kullanici" />
       <End Role="q_sinavSonuc" EntitySet="q_sinavSonuc" />
     </AssociationSet>
-    <AssociationSet Name="FK__q_soru__kategori__531856C7" Association="Self.FK__q_soru__kategori__531856C7">
+    <AssociationSet Name="FK__q_soru__kategori__69FBBC1F" Association="Self.FK__q_soru__kategori__69FBBC1F">
       <End Role="q_kategori" EntitySet="q_kategori" />
       <End Role="q_soru" EntitySet="q_soru" />
     </AssociationSet>

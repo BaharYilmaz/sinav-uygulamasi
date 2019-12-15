@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'C:\Users\BHR\source\repos\QuizApp\QuizApp\Models\EntityFramework\QuizModel.edmx'. 
+﻿// T4 code generation is enabled for model 'C:\Users\BHR\Documents\GitHub\sinav-uygulamasi\QuizApp\QuizApp\Models\EntityFramework\QuizModel.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.

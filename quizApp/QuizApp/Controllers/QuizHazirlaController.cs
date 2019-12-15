@@ -52,8 +52,15 @@ namespace QuizApp.Controllers
 
             //}
             db.SaveChanges();
-            
-            return View("QuizOlustur");
+            var model = new viewModel()
+            {
+                Kategori = db.q_kategori.ToList(),
+                Soru = new q_soru(),
+                Secenek = new q_secenek()
+
+            };
+            return View("QuizOlustur", model);
+         
 
         }
        

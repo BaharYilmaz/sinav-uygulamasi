@@ -1,14 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
   <EntityContainerMapping StorageEntityContainer="quizAppModelStoreContainer" CdmEntityContainer="quizAppEntities">
-    <EntitySetMapping Name="q_kategori">
-      <EntityTypeMapping TypeName="quizAppModel.q_kategori">
-        <MappingFragment StoreEntitySet="q_kategori">
-          <ScalarProperty Name="kategori" ColumnName="kategori" />
-          <ScalarProperty Name="kategoriId" ColumnName="kategoriId" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="q_kullanici">
       <EntityTypeMapping TypeName="quizAppModel.q_kullanici">
         <MappingFragment StoreEntitySet="q_kullanici">
@@ -30,6 +22,14 @@
           <ScalarProperty Name="soruId" ColumnName="soruId" />
           <ScalarProperty Name="userid" ColumnName="userid" />
           <ScalarProperty Name="sinavId" ColumnName="sinavId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="q_kategori">
+      <EntityTypeMapping TypeName="quizAppModel.q_kategori">
+        <MappingFragment StoreEntitySet="q_kategori">
+          <ScalarProperty Name="kategori" ColumnName="kategori" />
+          <ScalarProperty Name="kategoriId" ColumnName="kategoriId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

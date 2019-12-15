@@ -25,9 +25,9 @@ namespace QuizApp.Models.EntityFramework
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<q_kategori> q_kategori { get; set; }
         public virtual DbSet<q_kullanici> q_kullanici { get; set; }
         public virtual DbSet<q_sinavSonuc> q_sinavSonuc { get; set; }
+        public virtual DbSet<q_kategori> q_kategori { get; set; }
         public virtual DbSet<q_secenek> q_secenek { get; set; }
         public virtual DbSet<q_soru> q_soru { get; set; }
     }
