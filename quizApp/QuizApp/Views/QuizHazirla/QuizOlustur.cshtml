@@ -35,13 +35,12 @@
                     </div>
                     <br />
 
-                    <div>
+                    <div id="secenek">
                         <label><b>Seçenekleri Yazınız,Doğru Cevabı İşaretleyiniz:</b></label>
                         <div class="form-label-group">
                             <div class="row">
-                                <input type="radio" class="radioBtn"/>
-                                @Html.RadioButtonFor(m => m.Secenek.dogruCvp, 1, new { @class = "form-control col-md-1" })
-                                @Html.TextBoxFor(m => m.Secenek.cevap1, new { @class = "form-control col-md-11" })
+                                @Html.RadioButtonFor(m => m.Secenek.dogruCvp, "cevap1", new { @class = "form-control col-md-1" })
+                                @Html.TextBoxFor(m => m.Secenek.cevap1, new { @class = "form-control col-md-11 btnCvp" })
                             </div>
                         </div>
 
@@ -51,18 +50,16 @@
                         <div class="form-label-group">
 
                             <div class="row">
-                                <input type="radio" class="radioBtn" />
-                                @Html.RadioButtonFor(m => m.Secenek.dogruCvp, 1, new { @class = "form-control col-md-1" })
-                                @Html.TextBoxFor(m => m.Secenek.cevap2, new { @class = "form-control col-md-11" })
+                                @Html.RadioButtonFor(m => m.Secenek.dogruCvp, "cevap2", new { @class = "form-control col-md-1  " })
+                                @Html.TextBoxFor(m => m.Secenek.cevap2, new { @class = "form-control col-md-11 btnCvp" })
                             </div>
                         </div>
 
                         <br />
                         <div class="form-label-group">
                             <div class="row">
-                                <input type="radio" class="radioBtn" />
-                                @Html.RadioButtonFor(m => m.Secenek.dogruCvp, 1, new { @class = "form-control col-md-1" })
-                                @Html.TextBoxFor(m => m.Secenek.cevap3, new { @class = "form-control col-md-11" })
+                                @Html.RadioButtonFor(m => m.Secenek.dogruCvp, "cevap3", new { @class = "form-control col-md-1" })
+                                @Html.TextBoxFor(m => m.Secenek.cevap3, new { @class = "form-control col-md-11 btnCvp" })
                             </div>
                         </div>
 
@@ -70,12 +67,19 @@
 
                         <div class="form-label-group">
                             <div class="row">
-                                <input type="radio" class="radioBtn" />
-                                @Html.RadioButtonFor(m => m.Secenek.dogruCvp, 1, new { @class = "form-control col-md-1" })
-                                @Html.TextBoxFor(m => m.Secenek.cevap4, new { @class = "form-control col-md-11" })
+                                @Html.RadioButtonFor(m => m.Secenek.dogruCvp, "cevap4", new { @class = "form-control col-md-1 " })
+                                @Html.TextBoxFor(m => m.Secenek.cevap4, new { @class = "form-control col-md-11 btnCvp" })
                             </div>
                         </div>
-                       
+                        <br />
+
+                        <div class="form-label-group">
+                            <div class="row">
+                                @*@Html.TextBoxFor(m => m.Secenek.dogruCvp, new { @class = "form-control col-md-11", id = "dogruCvp" })*@
+                                <h4  id = "dogruCvp"></h4>
+                            </div>
+                        </div>
+
                     </div>
 
 
@@ -90,16 +94,23 @@
 </div>
 
 
-<script src="https://code.jquery.com/jquery-3.4.1.min.js"
-        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
-        crossorigin="anonymous"></script>
-<script>
-    $(document).ready(function () {
-        $(".radioBtn").click(function () {
-            
-        });
+    @*$(document).ready(function () {
+        $('input:radio[name=btnDogruCvp]:checked').change(function () {
+            wimdow.alert(dogruCevap);
+
+            var dogruCevap = $(this).siblings(".btnCvp").val();
+            wimdow.alert(dogruCevap);
+            document.getElementById("dogruCvp").innerHTML = dogruCevap;
+
+        }
+        //$(".btnDogruCvp").change(function () {
+
+        //    var dogruCevap = $(this).siblings(".btnCvp");
+        //    document.getElementById("dogruCvp").innerHTML = dogruCevap;
+
+        //});
     });
-</script>
+</script>**@
 
 
 
