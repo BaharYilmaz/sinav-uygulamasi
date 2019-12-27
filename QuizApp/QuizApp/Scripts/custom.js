@@ -1,5 +1,7 @@
 ﻿
-    $("#quizDogruCvp").hide();
+$("#quizDogruCvp").hide();
+var scnk = $(".quizCevap");
+scnk.removeAttr("disabled");
 
     var dogruMu = false;
 
@@ -9,16 +11,18 @@
 
     $('.quizCevap').click(function () {
 
+        //$('.quizCevap').prop('disabled', true);
+        scnk.setAttribute("disabled");
 
         var cevap = $(this).attr('name');
 
 
         if (quizDogruCvp == cevap) {
-            $(this).css("background-color", "green")
+            $(this).css("background-color", "LightGreen")
             dogruMu = true;
         }
         else {
-            $(this).css("background-color", "red")
+            $(this).css("background-color", "LightCoral")
             // $("#quizDogruCvp").show();
             dogruMu = false;
 

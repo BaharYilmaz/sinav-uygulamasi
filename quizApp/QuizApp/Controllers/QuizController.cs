@@ -68,7 +68,7 @@ namespace QuizApp.Controllers
 
             db.q_sinavSonuc.Add(SinavSonuc);
             db.SaveChanges();
-            soruSayac++;
+           
             return RedirectToAction("QuizStart");
             //  return RedirectToAction("QuizStart",new RouteValueDictionary(new { controller="Quiz",action= "QuizStart", soru= _soruSayac }) );
 
@@ -78,50 +78,72 @@ namespace QuizApp.Controllers
         {
 
              mesajViewModel mesajModel = new mesajViewModel();
-              var quiz = (from k in db.q_kategori
-                          join s in db.q_soru on k.kategoriId equals s.kategoriId
-                          join sc in db.q_secenek on s.soruUniq equals sc.soruUniq
-                          where s.derece == 0
 
-                          select new
-                          {
-                              quizKategori = k.kategoriId,
-                              quizSoruUniq = s.soruUniq,
-                              quizSoru = s.soru,
-                              quizCvp1 = sc.cevap1,
-                              quizCvp2 = sc.cevap2,
-                              quizCvp3 = sc.cevap3,
-                              quizCvp4 = sc.cevap4,
-                              quizDogruCvp = sc.dogruCvp
 
-                          }).ToList();
 
-            
-           
-            
 
-            if (quiz != null)
-            {
-                int i = soruSayac;
-                while (i < 5)
+
+            soruSayac++;
+
+            //if (quiz != null)
+            //{
+           // int i = soruSayac;
+                while (soruSayac < 7)
+                {
+
+
+                    var quiz = ((from k in db.q_kategori
+                                join s in db.q_soru on k.kategoriId equals s.kategoriId
+                                join sc in db.q_secenek on s.soruUniq equals sc.soruUniq
+                                where s.derece == 0 && s.kategoriId == soruSayac
+
+                                 select new
+                                {
+                                    quizKategori = k.kategoriId,
+                                    quizSoruUniq = s.soruUniq,
+                                    quizSoru = s.soru,
+                                    quizCvp1 = sc.cevap1,
+                                    quizCvp2 = sc.cevap2,
+                                    quizCvp3 = sc.cevap3,
+                                    quizCvp4 = sc.cevap4,
+                                    quizDogruCvp = sc.dogruCvp
+
+                                }).Take(1)).ToList();
+
+                if (quiz != null)
                 {
                     var model = new quizSonucViewModel()
                     {
                         Soru = new q_soru(),
                         Secenek = new q_secenek()
                     };
-                    model.Soru.soru = quiz[i].quizSoru;
-                    model.Secenek.cevap1 = quiz[i].quizCvp1;
-                    model.Secenek.cevap2 = quiz[i].quizCvp2;
-                    model.Secenek.cevap3 = quiz[i].quizCvp3;
-                    model.Secenek.cevap4 = quiz[i].quizCvp4;
-                    model.Secenek.dogruCvp = quiz[i].quizDogruCvp;
-                    model.Soru.soruUniq = quiz[i].quizSoruUniq;
-                    model.Soru.kategoriId = quiz[i].quizKategori;
+                    model.Soru.soru = quiz[0].quizSoru;
+                    model.Secenek.cevap1 = quiz[0].quizCvp1;
+                    model.Secenek.cevap2 = quiz[0].quizCvp2;
+                    model.Secenek.cevap3 = quiz[0].quizCvp3;
+                    model.Secenek.cevap4 = quiz[0].quizCvp4;
+                    model.Secenek.dogruCvp = quiz[0].quizDogruCvp;
+                    model.Soru.soruUniq = quiz[0].quizSoruUniq;
+                    model.Soru.kategoriId = quiz[0].quizKategori;
 
                     return View(model);
-
                 }
+                else
+                {
+                    soruSayac++;
+                }
+                //else
+                //{
+
+                //    mesajModel.Mesaj = "Cevaplanacak Soru Kalmadı...";
+
+                //    mesajModel.Status = 0;
+                //    mesajModel.LinkText = "ANASAYFA";
+                //    mesajModel.Url = "Home";
+                //    return View("_mesaj", mesajModel);
+                //}
+
+            }
                 //var sinavNo_ = (from gs in db.q_genelSonuc select gs.quizCount).Max();
                 //q_genelSonuc dbGenelSonuc = db.q_genelSonuc.Where(q => q.quizCount == sinavNo_).SingleOrDefault();
                 ////.AsEnumerable()
@@ -132,22 +154,13 @@ namespace QuizApp.Controllers
                 mesajModel.Status = 1;
                 mesajModel.LinkText = "Sınav sonucu için profile git";
                 mesajModel.Url = "/Profil/GrafikGoster";
+           
+
+            return View("_mesaj", mesajModel);
 
 
-                return View("_mesaj", mesajModel);
-
-
-            }
-            else
-            {
-
-                mesajModel.Mesaj = "Cevaplanacak Soru Kalmadı...";
-
-                mesajModel.Status = 0;
-                mesajModel.LinkText = "ANASAYFA";
-                mesajModel.Url = "Home";
-                return View("_mesaj", mesajModel);
-            }
+            //}
+           
 
 
         }

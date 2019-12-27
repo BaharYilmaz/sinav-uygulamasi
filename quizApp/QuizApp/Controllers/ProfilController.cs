@@ -39,9 +39,8 @@ namespace QuizApp.Controllers
         }
         public ActionResult GenelGrafik()
         {
-            var dbSonSinav = ((from ss in db.q_sinavSonuc select ss.sinavNo).Distinct()).Max();
 
-            List<string> genelPuan = GetSinavSonuc(dbSonSinav);
+            List<string> genelPuan = GetGenelSonuc();
 
             var chartSonuc = new Chart(500, 400);
             chartSonuc.AddTitle("Genel Sonuc Grafiği").AddLegend("Kategori")
@@ -55,9 +54,7 @@ namespace QuizApp.Controllers
 
         private List<string> GetSinavSonuc(int? Sinav_no)
         {
-            //TO DO: istenilen sınav sonucunu görme
-
-            //TO DO: istenilen sınav sonucunu görme
+           
 
             List<string> returnSonuc = new List<string>();
 
