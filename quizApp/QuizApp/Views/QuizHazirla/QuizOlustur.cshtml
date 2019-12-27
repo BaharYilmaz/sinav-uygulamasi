@@ -13,15 +13,17 @@
                 <h5 class="text-center"><b>SORU HAZIRLA</b></h5>
                 <br /><br />
 
-                @using (Html.BeginForm("SoruKaydet", "QuizHazirla", FormMethod.Post))
+                @using (Html.BeginForm("SoruKaydet", "QuizHazirla", FormMethod.Post, new { @id = "soruKaydet" }))
+
                 {
+                    @Html.AntiForgeryToken()
                     <div class="form-label-group">
                         <div class="row">
                             <div class="col-md-6">
                                 <label><b>Kategori Seçiniz:</b></label>
                             </div>
                             <div class="col-md-6">
-                                @Html.DropDownListFor(m => m.Soru.kategoriId, new SelectList(Model.Kategori, "kategoriId", "kategori"), "Kategori", new { @class = "form-control" })
+                                @Html.DropDownListFor(m => m.Soru.kategoriId, new SelectList(Model.Kategori, "kategoriId", "kategori"), "Kategori", new { @class = "form-control", required = "required" })
 
                             </div>
                         </div>
@@ -29,7 +31,7 @@
 
                     <div class="form-label-group">
                         <label><b>Sorunuzu Yazınız:</b></label>
-                        @Html.TextAreaFor(m => m.Soru.soru, new { @class = "form-control" })
+                        @Html.TextAreaFor(m => m.Soru.soru, new { @class = "form-control soru", required = "required" })
 
 
                     </div>
@@ -38,9 +40,9 @@
                     <div id="secenek">
                         <label><b>Seçenekleri Yazınız,Doğru Cevabı İşaretleyiniz:</b></label>
                         <div class="form-label-group">
-                            <div class="row">
-                                @Html.RadioButtonFor(m => m.Secenek.dogruCvp, "cevap1", new { @class = "form-control col-md-1" })
-                                @Html.TextBoxFor(m => m.Secenek.cevap1, new { @class = "form-control col-md-11 btnCvp" })
+                            <div class="row ">
+                                @Html.RadioButtonFor(m => m.Secenek.dogruCvp, "cevap1", new { @class = "form-control col-md-1", @checked = "checked" })
+                                @Html.TextBoxFor(m => m.Secenek.cevap1, new { @class = "form-control col-md-11 btnCvp", required = "required" })
                             </div>
                         </div>
 
@@ -51,7 +53,7 @@
 
                             <div class="row">
                                 @Html.RadioButtonFor(m => m.Secenek.dogruCvp, "cevap2", new { @class = "form-control col-md-1  " })
-                                @Html.TextBoxFor(m => m.Secenek.cevap2, new { @class = "form-control col-md-11 btnCvp" })
+                                @Html.TextBoxFor(m => m.Secenek.cevap2, new { @class = "form-control col-md-11 btnCvp", required = "required" })
                             </div>
                         </div>
 
@@ -59,7 +61,7 @@
                         <div class="form-label-group">
                             <div class="row">
                                 @Html.RadioButtonFor(m => m.Secenek.dogruCvp, "cevap3", new { @class = "form-control col-md-1" })
-                                @Html.TextBoxFor(m => m.Secenek.cevap3, new { @class = "form-control col-md-11 btnCvp" })
+                                @Html.TextBoxFor(m => m.Secenek.cevap3, new { @class = "form-control col-md-11 btnCvp", required = "required" })
                             </div>
                         </div>
 
@@ -68,15 +70,14 @@
                         <div class="form-label-group">
                             <div class="row">
                                 @Html.RadioButtonFor(m => m.Secenek.dogruCvp, "cevap4", new { @class = "form-control col-md-1 " })
-                                @Html.TextBoxFor(m => m.Secenek.cevap4, new { @class = "form-control col-md-11 btnCvp" })
+                                @Html.TextBoxFor(m => m.Secenek.cevap4, new { @class = "form-control col-md-11 btnCvp", required = "required" })
                             </div>
                         </div>
                         <br />
 
                         <div class="form-label-group">
                             <div class="row">
-                                @*@Html.TextBoxFor(m => m.Secenek.dogruCvp, new { @class = "form-control col-md-11", id = "dogruCvp" })*@
-                                <h4  id = "dogruCvp"></h4>
+                                <h4 id="dogruCvp"></h4>
                             </div>
                         </div>
 
@@ -84,7 +85,7 @@
 
 
                     <br /><br />
-                    <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Kaydet</button>
+                    <button class="btn btn-lg btn-success btn-block text-uppercase"  type="submit">Kaydet</button>
                     <hr class="my-4">
                 }
 
@@ -92,25 +93,12 @@
         </div>
     </div>
 </div>
+@section scripts
+{
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+}
 
-
-    @*$(document).ready(function () {
-        $('input:radio[name=btnDogruCvp]:checked').change(function () {
-            wimdow.alert(dogruCevap);
-
-            var dogruCevap = $(this).siblings(".btnCvp").val();
-            wimdow.alert(dogruCevap);
-            document.getElementById("dogruCvp").innerHTML = dogruCevap;
-
-        }
-        //$(".btnDogruCvp").change(function () {
-
-        //    var dogruCevap = $(this).siblings(".btnCvp");
-        //    document.getElementById("dogruCvp").innerHTML = dogruCevap;
-
-        //});
-    });
-</script>**@
 
 
 

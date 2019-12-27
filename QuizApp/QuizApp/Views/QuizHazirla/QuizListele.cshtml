@@ -1,0 +1,63 @@
+﻿@model List<QuizApp.Models.EntityFramework.q_secenek>
+@{
+    ViewBag.Title = "QuizListele";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<div class="container"  style="margin-top:70px;">
+
+    <table class="table table-bordered table-hover">
+        <tr style="background-color:lightgreen">
+            <th>
+                Kategori
+            </th>
+            <th>
+                Soru Metni
+            </th>
+            <th>
+                Secenek
+            </th>
+            <th>
+                Secenek
+            </th>
+            <th>
+                Secenek
+            </th>
+            <th>
+                Secenek
+            </th>
+
+            <th></th>
+        </tr>
+
+        @foreach (var quiz in Model)
+        {
+            <tr>
+                <td>
+                    @(quiz.q_soru.q_kategori.kategori)
+                </td>
+                <td>
+                    @(quiz.q_soru.soru)
+                </td>
+                <td>
+                    @(quiz.cevap1)
+                </td>
+                <td>
+                    @(quiz.cevap2)
+                </td>
+                <td>
+                    @(quiz.cevap3)
+                </td>
+                <td>
+                    @(quiz.cevap4)
+                </td>
+
+            </tr>
+        }
+
+    </table>
+
+
+</div>

@@ -1,5 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="quizAppModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="q_genelSonuc">
+    <Key>
+      <PropertyRef Name="genelId" />
+    </Key>
+    <Property Name="genelId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="userid" Type="int" />
+    <Property Name="genelPuan" Type="int" />
+    <Property Name="sinav_no" Type="int" />
+  </EntityType>
   <EntityType Name="q_kategori">
     <Key>
       <PropertyRef Name="kategoriId" />
@@ -14,7 +23,7 @@
     <Property Name="userid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="username" Type="nvarchar" MaxLength="50" />
     <Property Name="password" Type="nvarchar" MaxLength="20" />
-    <Property Name="rol" Type="bit" />
+    <Property Name="rol" Type="nvarchar" MaxLength="10" />
   </EntityType>
   <EntityType Name="q_secenek">
     <Key>
@@ -33,13 +42,12 @@
       <PropertyRef Name="sinavId" />
     </Key>
     <Property Name="sinavId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="userid" Type="int" />
-    <Property Name="soruId" Type="int" />
-    <Property Name="cevapId" Type="int" />
     <Property Name="dogruMu" Type="bit" />
     <Property Name="kategoriId" Type="int" />
-    <Property Name="puan" Type="decimal" Precision="18" Scale="0" />
+    <Property Name="puan" Type="int" />
     <Property Name="sinavTarih" Type="date" />
+    <Property Name="soruUniq" Type="uniqueidentifier" />
+    <Property Name="sinavNo" Type="int" />
   </EntityType>
   <EntityType Name="q_soru">
     <Key>
@@ -49,7 +57,20 @@
     <Property Name="soru" Type="nvarchar" MaxLength="250" />
     <Property Name="derece" Type="int" />
     <Property Name="kategoriId" Type="int" />
+    <Property Name="soruNo" Type="int" />
   </EntityType>
+  <Association Name="FK__q_genelSo__useri__2610A626">
+    <End Role="q_kullanici" Type="Self.q_kullanici" Multiplicity="0..1" />
+    <End Role="q_genelSonuc" Type="Self.q_genelSonuc" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="q_kullanici">
+        <PropertyRef Name="userid" />
+      </Principal>
+      <Dependent Role="q_genelSonuc">
+        <PropertyRef Name="userid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK__q_secenek__soruU__6CD828CA">
     <End Role="q_soru" Type="Self.q_soru" Multiplicity="0..1" />
     <End Role="q_secenek" Type="Self.q_secenek" Multiplicity="*" />
@@ -62,15 +83,15 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__q_sinavSo__useri__2FCF1A8A">
-    <End Role="q_kullanici" Type="Self.q_kullanici" Multiplicity="0..1" />
+  <Association Name="FK__q_sinavSo__sinav__28ED12D1">
+    <End Role="q_genelSonuc" Type="Self.q_genelSonuc" Multiplicity="0..1" />
     <End Role="q_sinavSonuc" Type="Self.q_sinavSonuc" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="q_kullanici">
-        <PropertyRef Name="userid" />
+      <Principal Role="q_genelSonuc">
+        <PropertyRef Name="genelId" />
       </Principal>
       <Dependent Role="q_sinavSonuc">
-        <PropertyRef Name="userid" />
+        <PropertyRef Name="sinavNo" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -87,17 +108,22 @@
     </ReferentialConstraint>
   </Association>
   <EntityContainer Name="quizAppModelStoreContainer">
+    <EntitySet Name="q_genelSonuc" EntityType="Self.q_genelSonuc" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="q_kategori" EntityType="Self.q_kategori" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="q_kullanici" EntityType="Self.q_kullanici" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="q_secenek" EntityType="Self.q_secenek" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="q_sinavSonuc" EntityType="Self.q_sinavSonuc" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="q_soru" EntityType="Self.q_soru" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__q_genelSo__useri__2610A626" Association="Self.FK__q_genelSo__useri__2610A626">
+      <End Role="q_kullanici" EntitySet="q_kullanici" />
+      <End Role="q_genelSonuc" EntitySet="q_genelSonuc" />
+    </AssociationSet>
     <AssociationSet Name="FK__q_secenek__soruU__6CD828CA" Association="Self.FK__q_secenek__soruU__6CD828CA">
       <End Role="q_soru" EntitySet="q_soru" />
       <End Role="q_secenek" EntitySet="q_secenek" />
     </AssociationSet>
-    <AssociationSet Name="FK__q_sinavSo__useri__2FCF1A8A" Association="Self.FK__q_sinavSo__useri__2FCF1A8A">
-      <End Role="q_kullanici" EntitySet="q_kullanici" />
+    <AssociationSet Name="FK__q_sinavSo__sinav__28ED12D1" Association="Self.FK__q_sinavSo__sinav__28ED12D1">
+      <End Role="q_genelSonuc" EntitySet="q_genelSonuc" />
       <End Role="q_sinavSonuc" EntitySet="q_sinavSonuc" />
     </AssociationSet>
     <AssociationSet Name="FK__q_soru__kategori__69FBBC1F" Association="Self.FK__q_soru__kategori__69FBBC1F">

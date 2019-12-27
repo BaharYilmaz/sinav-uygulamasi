@@ -8,7 +8,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>City Security System</title>
+    <title>Quiz App</title>
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel='stylesheet'
@@ -17,12 +17,10 @@
     <link href="~/Content/css/style.css" rel="stylesheet" />
 
 
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
-            integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
-            crossorigin="anonymous"></script>
+
     <script>
         $(document).ready(function () {
-           
+
 
             $('input:radio[name=btnDogruCvp]:checked').change(function () {
                 alert("ff");
@@ -40,6 +38,33 @@
 
             //});
         });
+        //$(document).ready(function () {
+        //    $("#btnNext").prop("disabled", true);
+        //    //$("#quizDogruCvp").hide();
+        //    var quizDogruCvp = $("#quizDogruCvp").val();
+        //    alert(quizDogruCvp);
+
+
+
+        //    $('.quizCevap').click(function () {
+
+
+        //        var cevap = "akk";
+        //        //document.getElementsByName("quizCevap").val();
+        //        window.alert(cevap);
+
+        //        if (quizDogruCvp == cevap) {
+        //            $(this).css("background-color", "green")
+        //        }
+        //        else {
+        //            $(this).css("background-color", "red")
+        //            // $("#quizDogruCvp").show();
+        //        }
+        //        $("#btnNext").prop("disabled", false);
+
+        //    });
+
+        //});
     </script>
 
 </head>
@@ -51,127 +76,101 @@
 
     <div class="container-fluid">
         @RenderBody()
+
     </div>
 
 
-
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+            integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+            crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
     @RenderSection("scripts", false)
-    @*<script src="~/Scripts/jquery-1.10.2.min.js"></script>
-        <script>
-
-            $(document).ready(function () {
-
-                $("#imageBrowes").change(function () {
-
-                    var File = this.files;
-
-                    if (File && File[0]) {
-                        ReadImage(File[0]);
-                    }
-
-                })
-
-            })
 
 
-            var ReadImage = function (file) {
-
-                var reader = new FileReader;
-                var image = new Image;
-
-                reader.readAsDataURL(file);
-                reader.onload = function (_file) {
-
-                    image.src = _file.target.result;
-                    image.onload = function () {
-
-                        var height = this.height;
-                        var width = this.width;
-                        var type = file.type;
-                        var size = ~~(file.size / 1024) + "KB";
-
-                        $("#targetImg").attr('src', _file.target.result);
-                        $("#description").text("Size:" + size + ", " + height + "X " + width + ", " + type + "");
-                        $("#imgPreview").show();
-
-                    }
-
-                }
-
-            }
-
-            var ClearPreview = function () {
-                $("#imageBrowes").val('');
-                $("#description").text('');
-                $("#imgPreview").hide();
-
-            }
-
-            var Uploadimage = function () {
-
-                var file = $("#imageBrowes").get(0).files;
-
-                var data = new FormData;
-                data.append("ImageFile", file[0]);
-                data.append("ProductName", "SamsungA8");
-
-                $.ajax({
-
-                    type: "Post",
-                    url: "/Test/ImageUpload",
-                    data: data,
-                    contentType: false,
-                    processData: false,
-                    success: function (response) {
-                        ClearPreview();
-
-                        $("#uploadedImage").append('<img src="/UploadedImage/' + response + '" class="img-responsive thumbnail"/>');
-
-
-                    }
-
-                })
-
-
-                //
-            }
-
-        </script>*@
     <script>
         $(document).ready(function () {
 
-            //$(".Secenek.dogruCvp").click(function () {
-            //    alert("ff");
-
-            //});
-            //$('input:radio[name=Secenek.dogruCvp]:checked').change(function () {
-            //    wimdow.alert(dogruCevap);
-            //    alert("ff");
-
-            //    var dogruCevap = $(this).siblings(".btnCvp").val();
-            //    wimdow.alert(dogruCevap);
-            //    
-
-            //});
-
-          
             $('#secenek').change(function () {
-                //$("input[name='Secenek.dogruCvp']:checked").change(function () {
+
                 var dogruCevap = $("input[name='Secenek.dogruCvp']:checked").siblings(".btnCvp").val();
                 document.getElementById("dogruCvp").innerHTML = dogruCevap;
 
-                //})
-                    //selected_value = $("input[name='Secenek.dogruCvp']:checked").val();
-                    //var dogruCevap = $("input[name='Secenek.dogruCvp']:checked").siblings(".Secenek.cevap1").text();
-                    //var dogruCevap = $(".Secenek.cevap1").text();
+            });
 
-                    //alert(dogruCevap);
-
-                });
-            
         });
+
     </script>
+
+    @*@
+            $(document).ready(function () {
+                $("#quizDogruCvp").hide();
+
+                var dogruMu = false;
+
+                var quizDogruCvp = $("#quizDogruCvp").text();
+                // alert(quizDogruCvp);
+                //alert("doğru cevabı alamadık");
+
+                $('.quizCevap').click(function () {
+
+                   // alert("tıklandı")
+                    var cevap = $(this).attr('name');
+
+
+                    if (quizDogruCvp == cevap) {
+                        $(this).css("background-color", "green")
+                        dogruMu = true;
+                    }
+                    else {
+                        $(this).css("background-color", "red")
+                        // $("#quizDogruCvp").show();
+                        dogruMu = false;
+
+                    } var btn = $("#btnNext");
+                    btn.removeAttr("disabled");
+                    // $("#btnNext").prop("disabled", false);
+                    // window.alert(dogruMu);
+                });
+
+              //  nextClick = $("#soruSayac").text();
+               // alert(nextClick);
+
+                $("#btnNext").click(function () {
+
+
+
+                    var soruUniq = $("#SoruUniq").text();
+
+                    $.ajax({
+
+                        url:"/Quiz/QuizSonuc",
+                        //url: '@Url.Action("QuizSonuc", "Quiz")',
+                        type: 'POST',
+                        // dataType: "json",
+                        data: "&soruUniq=" + soruUniq + "&sonuc=" + dogruMu,
+                        success: function (gelenveri) {
+
+                        },
+                        error: function (hata) {
+                           // window.alert("hata");
+
+                        }
+                    });
+                    nextClick++;
+                //    alert("sayac --" + nextClick);
+
+                    //$("#soruSayac").text(nextClick);
+                    //$("#soruSayac").innerText = nextClick++;
+                });
+
+
+            });
+
+
+        </script>*@
+
 
 </body>
 

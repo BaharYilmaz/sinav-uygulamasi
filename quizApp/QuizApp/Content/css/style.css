@@ -21,21 +21,12 @@ body {
     display: none;
 }*/
 
-.custom-file-upload {
-    border: 1px solid rgb(197, 197, 197);
-    border-radius: 4px 4px 4px 4px;
-    display: inline-block;
-    padding: 6px 12px;
-    cursor: pointer;
-    float: right;
-    width: 5.25em;
-    margin-left: 200px;
+
+#quizBaslik {
+    margin-bottom: 20px;
+}
+#home {
+    margin-top: 70px;
 }
 
-.photo {
-    width: 7em;
-    height: 9em;
-    border: 1px solid rgb(197, 197, 197);
-    border-radius: 4px 4px 4px 4px;
-    float: right;
-}
+

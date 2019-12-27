@@ -6,10 +6,10 @@ using System.Web;
 
 namespace QuizApp.ViewModel
 {
-    public class CevapViewModel
+    public class quizSonucViewModel
     {
 
-        public IEnumerable<q_soru> Soru { get; set; }
-        public q_secenek cevap { get; set; }
+        public q_soru Soru { get; set; }
+        public q_secenek Secenek { get; set; }
     }
 }

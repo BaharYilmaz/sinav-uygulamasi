@@ -1,0 +1,41 @@
+﻿
+@{
+    ViewBag.Title = "Home";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+    <div class="row">
+        <div class="col-sm-10  mx-auto ">
+            <div class="card card-signin my-5">
+                <div id="home" class="card-body" style="margin-top:70px;">
+                    <h5 style="margin-bottom:20px;" id="quizBaslik" class="text-center"><b>QUIZ APP</b></h5>
+
+
+                    <div class="card">
+                        <div class="card-header">
+                            Hoşgeldiniz
+                        </div>
+                        @if (User.IsInRole("S"))
+                        {
+                            <div class="card-body">
+                                <h5 class="card-title">Sınav Olun...</h5>
+                                <p class="card-text">Bu uygulama belirli kategorilere ait türkçe soruları içermektedir.</p>
+                                @Html.ActionLink("Sınava Başla!", "Quiz", "Quiz", null, new { @class = "btn btn-success" })
+
+                            </div>
+                        }
+                        @if (User.IsInRole("T"))
+                        {
+                            <div class="card-body">
+                                <h5 class="card-title">Soru Hazırlayın...</h5>
+                                <p class="card-text">Bu uygulama belirli kategorilere ait türkçe soruları hazırlamanıza imkan vermektedir.</p>
+                                @Html.ActionLink("Soru Hazırla!", "QuizOlustur", "QuizHazirla", null, new { @class = "btn btn-success" })
+
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

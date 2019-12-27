@@ -6,11 +6,11 @@ using System.Web.Mvc;
 
 namespace QuizApp.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "T,S")]
     public class HomeController : Controller
     {
         // GET: Home
-        public ActionResult Index()
+        public ActionResult Home()
         {
             return View();
         }

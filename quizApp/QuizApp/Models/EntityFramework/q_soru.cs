@@ -24,6 +24,7 @@ namespace QuizApp.Models.EntityFramework
         public string soru { get; set; }
         public Nullable<int> derece { get; set; }
         public Nullable<int> kategoriId { get; set; }
+        public Nullable<int> soruNo { get; set; }
     
         public virtual q_kategori q_kategori { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

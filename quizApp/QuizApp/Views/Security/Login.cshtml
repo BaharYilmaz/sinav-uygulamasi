@@ -13,28 +13,32 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 </head>
 <body>
-    @ViewBag.Mesaj
+   
     <div class="container">
         <div class="row">
             <div class="col-sm-9 col-md-7 col-lg-5 mx-auto" style="margin-top: 80px;">
                 <div class="card card-signin my-5">
                     <div class="card-body">
+
                         <h5 class="card-title text-center">Giriş Ekranı</h5>
                         @using (Html.BeginForm("Login", "Security", FormMethod.Post))
                         {
-                        <div class="form-label-group">
-                            @Html.TextBoxFor(m => m.username, new { @class = "form-control", placeholder = "Kullanıcı adı" })
-                        </div>
+                            <div class="form-label-group">
+                                @Html.TextBoxFor(m => m.username, new { @class = "form-control", placeholder = "Kullanıcı adı" , required = "required" })
+                            </div>
                             <br />
                             <div class="form-label-group">
-                                @Html.PasswordFor(m => m.password, new { @class = "form-control", placeholder = "Sifre" })
+                                @Html.PasswordFor(m => m.password, new { @class = "form-control", placeholder = "Sifre", required = "required" })
                             </div>
 
                             <br /><br />
-                            <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Giriş yap</button>
+                            <button class="btn btn-lg btn-success btn-block text-uppercase" type="submit">Giriş yap</button>
+
                             <hr class="my-4">
                         }
-
+                        <h4 style="color:firebrick; text-align: center;">
+                            @ViewBag.Mesaj
+                        </h4>
                     </div>
                 </div>
             </div>

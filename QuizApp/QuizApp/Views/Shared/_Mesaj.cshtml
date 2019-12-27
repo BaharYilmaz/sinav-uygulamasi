@@ -1,0 +1,27 @@
+﻿@model QuizApp.ViewModel.mesajViewModel
+
+<div class="row">
+    <div class="col-sm-10  mx-auto ">
+        <div class="card card-signin my-5">
+            <div class="card-body" style="margin-top:70px;">
+               
+
+                @if (Model.Status==1)
+                {
+                    <div class="alert alert-success">
+                        @Model.Mesaj <a href="@Model.Url">@Model.LinkText</a>
+                    </div>
+                }
+                else
+                {
+                    <div class="alert alert-danger">
+                        @Model.Mesaj <a href="@Model.Url">@Model.LinkText</a>
+                    </div>
+
+                }
+
+
+            </div>
+        </div>
+    </div>
+</div>

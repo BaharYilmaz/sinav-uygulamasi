@@ -1,19 +1,156 @@
-﻿using System;
+﻿using QuizApp.Models.EntityFramework;
+using QuizApp.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Routing;
+using System.Web.UI.WebControls;
 
 namespace QuizApp.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "S")]
     public class QuizController : Controller
     {
-        // GET: Quiz
+        private quizAppEntities db = new quizAppEntities();
+        private static int soruSayac = 0;
+       // private static bool getDb = false;
+
+        [HttpGet]
         public ActionResult Quiz()
         {
-            return View();
+            var dbgenelSonuc = new q_genelSonuc();
+            var sinavNo = (from gs in db.q_genelSonuc select gs.sinav_no).Max();
+
+            if (sinavNo == null) dbgenelSonuc.sinav_no = 1;
+            else dbgenelSonuc.sinav_no = sinavNo + 1;
+            dbgenelSonuc.userid = 2;
+
+
+            db.q_genelSonuc.Add(dbgenelSonuc);
+            db.SaveChanges();
+           // getDb = true;
+
+
+            return RedirectToAction("QuizStart");
+
         }
-      
+
+
+
+        [HttpPost]
+        public ActionResult QuizSonuc(string soruUniq, bool sonuc)
+        {
+            var soruID = Guid.Parse(soruUniq);
+            var sinavNo = (from gs in db.q_genelSonuc select gs.sinav_no).Max();
+
+            q_sinavSonuc SinavSonuc = new q_sinavSonuc();
+            q_soru dbsoru = db.q_soru.Where(s => s.soruUniq == soruID).SingleOrDefault();
+
+            if (sonuc) dbsoru.derece = 1;
+            else dbsoru.derece = -1;
+
+            SinavSonuc.soruUniq = dbsoru.soruUniq;
+            SinavSonuc.dogruMu = sonuc;
+
+            if (sonuc) SinavSonuc.puan = 5;
+            else SinavSonuc.puan = 0;
+
+            SinavSonuc.kategoriId = dbsoru.kategoriId;
+            SinavSonuc.sinavTarih = DateTime.Now;
+            SinavSonuc.sinavNo = sinavNo;
+
+
+
+            db.q_sinavSonuc.Add(SinavSonuc);
+            db.SaveChanges();
+            soruSayac++;
+            return RedirectToAction("QuizStart");
+            //  return RedirectToAction("QuizStart",new RouteValueDictionary(new { controller="Quiz",action= "QuizStart", soru= _soruSayac }) );
+
+        }
+
+        public ActionResult QuizStart()
+        {
+
+             mesajViewModel mesajModel = new mesajViewModel();
+              var quiz = (from k in db.q_kategori
+                          join s in db.q_soru on k.kategoriId equals s.kategoriId
+                          join sc in db.q_secenek on s.soruUniq equals sc.soruUniq
+                          where s.derece == 0
+
+                          select new
+                          {
+                              quizKategori = k.kategoriId,
+                              quizSoruUniq = s.soruUniq,
+                              quizSoru = s.soru,
+                              quizCvp1 = sc.cevap1,
+                              quizCvp2 = sc.cevap2,
+                              quizCvp3 = sc.cevap3,
+                              quizCvp4 = sc.cevap4,
+                              quizDogruCvp = sc.dogruCvp
+
+                          }).ToList();
+
+            
+           
+            
+
+            if (quiz != null)
+            {
+                int i = soruSayac;
+                while (i < 5)
+                {
+                    var model = new quizSonucViewModel()
+                    {
+                        Soru = new q_soru(),
+                        Secenek = new q_secenek()
+                    };
+                    model.Soru.soru = quiz[i].quizSoru;
+                    model.Secenek.cevap1 = quiz[i].quizCvp1;
+                    model.Secenek.cevap2 = quiz[i].quizCvp2;
+                    model.Secenek.cevap3 = quiz[i].quizCvp3;
+                    model.Secenek.cevap4 = quiz[i].quizCvp4;
+                    model.Secenek.dogruCvp = quiz[i].quizDogruCvp;
+                    model.Soru.soruUniq = quiz[i].quizSoruUniq;
+                    model.Soru.kategoriId = quiz[i].quizKategori;
+
+                    return View(model);
+
+                }
+                var sinavNo_ = (from gs in db.q_genelSonuc select gs.sinav_no).Max();
+                q_genelSonuc dbGenelSonuc = db.q_genelSonuc.Where(q => q.sinav_no == sinavNo_).SingleOrDefault();
+                //.AsEnumerable()
+                dbGenelSonuc.genelPuan = db.q_sinavSonuc.Where(q => q.sinavNo == sinavNo_).Sum(q => q.puan);
+                db.SaveChanges();
+
+                mesajModel.Mesaj = "Sınav Tamamlandı...";
+                mesajModel.Status = 1;
+                mesajModel.LinkText = "Sınav sonucu için profile git";
+                mesajModel.Url = "/Profil/GrafikGoster";
+
+
+                return View("_mesaj", mesajModel);
+
+
+            }
+            else
+            {
+
+                mesajModel.Mesaj = "Cevaplanacak Soru Kalmadı...";
+
+                mesajModel.Status = 0;
+                mesajModel.LinkText = "ANASAYFA";
+                mesajModel.Url = "Home";
+                return View("_mesaj", mesajModel);
+            }
+
+
+        }
     }
+
 }
+
+
+

@@ -12,20 +12,21 @@ namespace QuizApp.Models.EntityFramework
     using System;
     using System.Collections.Generic;
     
-    public partial class q_kullanici
+    public partial class q_genelSonuc
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public q_kullanici()
+        public q_genelSonuc()
         {
-            this.q_genelSonuc = new HashSet<q_genelSonuc>();
+            this.q_sinavSonuc = new HashSet<q_sinavSonuc>();
         }
     
-        public int userid { get; set; }
-        public string username { get; set; }
-        public string password { get; set; }
-        public string rol { get; set; }
+        public int genelId { get; set; }
+        public Nullable<int> userid { get; set; }
+        public Nullable<int> genelPuan { get; set; }
+        public Nullable<int> sinav_no { get; set; }
     
+        public virtual q_kullanici q_kullanici { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<q_genelSonuc> q_genelSonuc { get; set; }
+        public virtual ICollection<q_sinavSonuc> q_sinavSonuc { get; set; }
     }
 }

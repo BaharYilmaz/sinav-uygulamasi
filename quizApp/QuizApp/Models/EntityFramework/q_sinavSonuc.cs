@@ -15,14 +15,13 @@ namespace QuizApp.Models.EntityFramework
     public partial class q_sinavSonuc
     {
         public int sinavId { get; set; }
-        public Nullable<int> userid { get; set; }
-        public Nullable<int> soruId { get; set; }
-        public Nullable<int> cevapId { get; set; }
         public Nullable<bool> dogruMu { get; set; }
         public Nullable<int> kategoriId { get; set; }
-        public Nullable<decimal> puan { get; set; }
+        public Nullable<int> puan { get; set; }
         public Nullable<System.DateTime> sinavTarih { get; set; }
+        public Nullable<System.Guid> soruUniq { get; set; }
+        public Nullable<int> sinavNo { get; set; }
     
-        public virtual q_kullanici q_kullanici { get; set; }
+        public virtual q_genelSonuc q_genelSonuc { get; set; }
     }
 }

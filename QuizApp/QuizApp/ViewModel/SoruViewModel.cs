@@ -10,6 +10,8 @@ namespace QuizApp.ViewModel
     {
 
         public IEnumerable<q_kategori> Kategori { get; set; }
-        public q_soru Soru { get; set; }
+        public IEnumerable<q_soru> Soru { get; set; }
+        public IEnumerable<q_secenek> Secenek { get; set; }
+
     }
 }

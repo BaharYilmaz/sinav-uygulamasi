@@ -14,6 +14,7 @@ namespace QuizApp.Controllers
         quizAppEntities db = new quizAppEntities();
 
         // GET: Security
+        [AllowAnonymous]
         public ActionResult Login()
         {
             
@@ -21,6 +22,7 @@ namespace QuizApp.Controllers
         }
 
         [HttpPost]
+        [AllowAnonymous]
         public ActionResult Login(q_kullanici kullanici)
         {
             //database içerisinde girilen kullanıcı adını ve şifreyi arama
@@ -29,7 +31,7 @@ namespace QuizApp.Controllers
             if(user!= null)
             {
                 FormsAuthentication.SetAuthCookie(user.username,false);//false - cookienin kalıcı olmaması için
-                return RedirectToAction("Index", "Home");//giriş başarılı home a yönlendir
+                return RedirectToAction("Home", "Home");//giriş başarılı home a yönlendir
 
             }
             else

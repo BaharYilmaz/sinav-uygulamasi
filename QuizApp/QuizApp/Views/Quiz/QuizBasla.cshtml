@@ -1,0 +1,91 @@
+﻿@model QuizApp.ViewModel.quizSonucViewModel
+@{
+    ViewBag.Title = "QuizBasla";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<div class="row">
+    <div class="col-sm-9 col-md-7 col-lg-5 mx-auto" style="margin-top: 80px;">
+        <div class="card card-signin my-5">
+            <div class="card-body">
+                <h5 class="card-title text-center">Quiz Ekranı</h5>
+                @*@using (Html.BeginForm("Quiz", "Quiz", FormMethod.Post))
+                    {*@
+
+                <form method="post" id="quizSinavForm">
+
+
+
+                    <div class="form-label-group">
+                        <h4 id="soruSayac">@ViewBag.Sayac</h4>
+                        @*@Html.HiddenFor(m => m.Soru.soruUniq)*@
+
+                        <h3>
+
+                            @(Model.Soru.soru)
+                            @*@ViewBag.quizSoru*@
+                        </h3>
+                    </div>
+                    <br />
+                    <div class="form-label-group">
+                        <a class="btn quizCevap" name="cevap1">
+                            @(Model.Secenek.cevap1)
+                            @*@ViewBag.quizCvp1*@
+
+                        </a>
+
+                    </div>
+                    <br />
+                    <div class="form-label-group">
+                        <a class="btn quizCevap" name="cevap2">
+                            @(Model.Secenek.cevap2)
+
+                            @*@ViewBag.quizCvp2*@
+
+                        </a>
+                    </div>
+                    <br />
+                    <div class="form-label-group">
+                        <a class="btn quizCevap" name="cevap3">
+                            @(Model.Secenek.cevap3)
+
+                            @*@ViewBag.quizCvp3*@
+
+                        </a>
+                    </div>
+                    <br />
+                    <div class="form-label-group">
+                        <a class="btn quizCevap" name="cevap4">
+                            @(Model.Secenek.cevap4)
+
+                            @*@ViewBag.quizCvp4*@
+
+                        </a>
+                    </div>
+                    <div class="form-label-group">
+                        <button class="btn" id="quizDogruCvp" hidden>@(Model.Secenek.dogruCvp)</button>
+                        <div class="form-label-group">
+                            <button class="btn" id="SoruUniq" hidden>@(Model.Soru.soruUniq)</button>
+                        </div>
+
+                    </div>
+
+
+                    <br /><br />
+
+                    <hr class="my-4">
+
+
+                    <button class="btn btn-lg btn-success btn-block text-uppercase" type="submit" id="btnNext" disabled>Next</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts
+{
+    <script src="~/Scripts/custom.js"></script>
+}
