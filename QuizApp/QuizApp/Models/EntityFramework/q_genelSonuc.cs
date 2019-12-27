@@ -20,10 +20,9 @@ namespace QuizApp.Models.EntityFramework
             this.q_sinavSonuc = new HashSet<q_sinavSonuc>();
         }
     
-        public int genelId { get; set; }
+        public int sinavUniq { get; set; }
         public Nullable<int> userid { get; set; }
-        public Nullable<int> genelPuan { get; set; }
-        public Nullable<int> sinav_no { get; set; }
+        public Nullable<int> quizCount { get; set; }
     
         public virtual q_kullanici q_kullanici { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

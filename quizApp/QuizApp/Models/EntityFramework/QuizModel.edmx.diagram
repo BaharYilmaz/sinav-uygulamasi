@@ -5,14 +5,14 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="2d6128f01432447badf006fc6bd4bcc5" Name="Diagram1" ZoomLevel="93">
-        <EntityTypeShape EntityType="quizAppModel.q_kategori" Width="1.5" PointX="0.75" PointY="5.375" />
-        <EntityTypeShape EntityType="quizAppModel.q_secenek" Width="1.5" PointX="5.25" PointY="5" />
-        <EntityTypeShape EntityType="quizAppModel.q_soru" Width="1.5" PointX="3" PointY="5" />
+        <EntityTypeShape EntityType="quizAppModel.q_kategori" Width="1.5" PointX="0.75" PointY="1.375" />
+        <EntityTypeShape EntityType="quizAppModel.q_kullanici" Width="1.5" PointX="0.75" PointY="5.25" />
+        <EntityTypeShape EntityType="quizAppModel.q_secenek" Width="1.5" PointX="5.25" PointY="1" />
+        <EntityTypeShape EntityType="quizAppModel.q_soru" Width="1.5" PointX="3" PointY="1.125" />
         <AssociationConnector Association="quizAppModel.FK__q_soru__kategori__69FBBC1F" />
         <AssociationConnector Association="quizAppModel.FK__q_secenek__soruU__6CD828CA" />
-        <EntityTypeShape EntityType="quizAppModel.q_kullanici" Width="1.5" PointX="0.75" PointY="1.25" />
-        <EntityTypeShape EntityType="quizAppModel.q_sinavSonuc" Width="1.5" PointX="5.25" PointY="1" />
-        <EntityTypeShape EntityType="quizAppModel.q_genelSonuc" Width="1.5" PointX="3" PointY="1.125" />
+        <EntityTypeShape EntityType="quizAppModel.q_genelSonuc" Width="1.5" PointX="3" PointY="5.25" />
+        <EntityTypeShape EntityType="quizAppModel.q_sinavSonuc" Width="1.5" PointX="5.25" PointY="4.875" />
         <AssociationConnector Association="quizAppModel.FK__q_genelSo__useri__2610A626" />
         <AssociationConnector Association="quizAppModel.FK__q_sinavSo__sinav__28ED12D1" />
         </Diagram>

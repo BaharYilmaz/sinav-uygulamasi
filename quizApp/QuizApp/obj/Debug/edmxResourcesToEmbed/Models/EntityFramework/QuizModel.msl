@@ -9,6 +9,16 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="q_kullanici">
+      <EntityTypeMapping TypeName="quizAppModel.q_kullanici">
+        <MappingFragment StoreEntitySet="q_kullanici">
+          <ScalarProperty Name="rol" ColumnName="rol" />
+          <ScalarProperty Name="password" ColumnName="password" />
+          <ScalarProperty Name="username" ColumnName="username" />
+          <ScalarProperty Name="userid" ColumnName="userid" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="q_secenek">
       <EntityTypeMapping TypeName="quizAppModel.q_secenek">
         <MappingFragment StoreEntitySet="q_secenek">
@@ -25,7 +35,6 @@
     <EntitySetMapping Name="q_soru">
       <EntityTypeMapping TypeName="quizAppModel.q_soru">
         <MappingFragment StoreEntitySet="q_soru">
-          <ScalarProperty Name="soruNo" ColumnName="soruNo" />
           <ScalarProperty Name="kategoriId" ColumnName="kategoriId" />
           <ScalarProperty Name="derece" ColumnName="derece" />
           <ScalarProperty Name="soru" ColumnName="soru" />
@@ -33,13 +42,12 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="q_kullanici">
-      <EntityTypeMapping TypeName="quizAppModel.q_kullanici">
-        <MappingFragment StoreEntitySet="q_kullanici">
-          <ScalarProperty Name="rol" ColumnName="rol" />
-          <ScalarProperty Name="password" ColumnName="password" />
-          <ScalarProperty Name="username" ColumnName="username" />
+    <EntitySetMapping Name="q_genelSonuc">
+      <EntityTypeMapping TypeName="quizAppModel.q_genelSonuc">
+        <MappingFragment StoreEntitySet="q_genelSonuc">
+          <ScalarProperty Name="quizCount" ColumnName="quizCount" />
           <ScalarProperty Name="userid" ColumnName="userid" />
+          <ScalarProperty Name="sinavUniq" ColumnName="sinavUniq" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -47,22 +55,13 @@
       <EntityTypeMapping TypeName="quizAppModel.q_sinavSonuc">
         <MappingFragment StoreEntitySet="q_sinavSonuc">
           <ScalarProperty Name="sinavNo" ColumnName="sinavNo" />
+          <ScalarProperty Name="sinavUniq" ColumnName="sinavUniq" />
           <ScalarProperty Name="soruUniq" ColumnName="soruUniq" />
           <ScalarProperty Name="sinavTarih" ColumnName="sinavTarih" />
           <ScalarProperty Name="puan" ColumnName="puan" />
           <ScalarProperty Name="kategoriId" ColumnName="kategoriId" />
           <ScalarProperty Name="dogruMu" ColumnName="dogruMu" />
           <ScalarProperty Name="sinavId" ColumnName="sinavId" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="q_genelSonuc">
-      <EntityTypeMapping TypeName="quizAppModel.q_genelSonuc">
-        <MappingFragment StoreEntitySet="q_genelSonuc">
-          <ScalarProperty Name="sinav_no" ColumnName="sinav_no" />
-          <ScalarProperty Name="genelPuan" ColumnName="genelPuan" />
-          <ScalarProperty Name="userid" ColumnName="userid" />
-          <ScalarProperty Name="genelId" ColumnName="genelId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

@@ -2,12 +2,11 @@
 <Schema Namespace="quizAppModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
   <EntityType Name="q_genelSonuc">
     <Key>
-      <PropertyRef Name="genelId" />
+      <PropertyRef Name="sinavUniq" />
     </Key>
-    <Property Name="genelId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="sinavUniq" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="userid" Type="int" />
-    <Property Name="genelPuan" Type="int" />
-    <Property Name="sinav_no" Type="int" />
+    <Property Name="quizCount" Type="int" />
   </EntityType>
   <EntityType Name="q_kategori">
     <Key>
@@ -47,6 +46,7 @@
     <Property Name="puan" Type="int" />
     <Property Name="sinavTarih" Type="date" />
     <Property Name="soruUniq" Type="uniqueidentifier" />
+    <Property Name="sinavUniq" Type="int" />
     <Property Name="sinavNo" Type="int" />
   </EntityType>
   <EntityType Name="q_soru">
@@ -57,7 +57,6 @@
     <Property Name="soru" Type="nvarchar" MaxLength="250" />
     <Property Name="derece" Type="int" />
     <Property Name="kategoriId" Type="int" />
-    <Property Name="soruNo" Type="int" />
   </EntityType>
   <Association Name="FK__q_genelSo__useri__2610A626">
     <End Role="q_kullanici" Type="Self.q_kullanici" Multiplicity="0..1" />
@@ -88,10 +87,10 @@
     <End Role="q_sinavSonuc" Type="Self.q_sinavSonuc" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="q_genelSonuc">
-        <PropertyRef Name="genelId" />
+        <PropertyRef Name="sinavUniq" />
       </Principal>
       <Dependent Role="q_sinavSonuc">
-        <PropertyRef Name="sinavNo" />
+        <PropertyRef Name="sinavUniq" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

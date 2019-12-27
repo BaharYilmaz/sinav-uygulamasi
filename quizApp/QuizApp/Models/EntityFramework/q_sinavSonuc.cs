@@ -20,6 +20,7 @@ namespace QuizApp.Models.EntityFramework
         public Nullable<int> puan { get; set; }
         public Nullable<System.DateTime> sinavTarih { get; set; }
         public Nullable<System.Guid> soruUniq { get; set; }
+        public Nullable<int> sinavUniq { get; set; }
         public Nullable<int> sinavNo { get; set; }
     
         public virtual q_genelSonuc q_genelSonuc { get; set; }

@@ -19,18 +19,18 @@
 
 
     <script>
-        $(document).ready(function () {
+        //$(document).ready(function () {
 
 
-            $('input:radio[name=btnDogruCvp]:checked').change(function () {
-                alert("ff");
-                wimdow.alert(dogruCevap);
+        //    $('input:radio[name=btnDogruCvp]:checked').change(function () {
+        //        alert("ff");
+        //        wimdow.alert(dogruCevap);
 
-                var dogruCevap = $(this).siblings(".btnCvp").val();
-                wimdow.alert(dogruCevap);
-                document.getElementById("dogruCvp").innerHTML = dogruCevap;
+        //        var dogruCevap = $(this).siblings(".btnCvp").val();
+        //        wimdow.alert(dogruCevap);
+        //        document.getElementById("dogruCvp").innerHTML = dogruCevap;
 
-            });
+        //    });
             //$(".btnDogruCvp").change(function () {
 
             //    var dogruCevap = $(this).siblings(".btnCvp");
@@ -99,6 +99,29 @@
 
             });
 
+       
+       
+            
+            $('#sinavlar').on('change', function () {
+
+                var sinavNo_ = $('#sinavlar').val();
+               
+
+                $.ajax({
+
+                    url: "/Profil/AnlikGrafik",
+                    type: 'POST',
+                    data: "&sinavNo=" + sinavNo_ ,
+                    success: function (gelenveri) {
+                        alert("başarı");
+                    },
+                    error: function (hata) {
+                       // alert("hata");
+
+                    }
+                     });
+
+            });
         });
 
     </script>

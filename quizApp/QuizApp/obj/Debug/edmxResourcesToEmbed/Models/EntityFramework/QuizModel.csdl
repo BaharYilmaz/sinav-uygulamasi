@@ -2,6 +2,7 @@
 <Schema Namespace="quizAppModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
   <EntityContainer Name="quizAppEntities" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="q_kategori" EntityType="quizAppModel.q_kategori" />
+    <EntitySet Name="q_kullanici" EntityType="quizAppModel.q_kullanici" />
     <EntitySet Name="q_secenek" EntityType="quizAppModel.q_secenek" />
     <EntitySet Name="q_soru" EntityType="quizAppModel.q_soru" />
     <AssociationSet Name="FK__q_soru__kategori__69FBBC1F" Association="quizAppModel.FK__q_soru__kategori__69FBBC1F">
@@ -12,9 +13,8 @@
       <End Role="q_soru" EntitySet="q_soru" />
       <End Role="q_secenek" EntitySet="q_secenek" />
     </AssociationSet>
-    <EntitySet Name="q_kullanici" EntityType="quizAppModel.q_kullanici" />
-    <EntitySet Name="q_sinavSonuc" EntityType="quizAppModel.q_sinavSonuc" />
     <EntitySet Name="q_genelSonuc" EntityType="quizAppModel.q_genelSonuc" />
+    <EntitySet Name="q_sinavSonuc" EntityType="quizAppModel.q_sinavSonuc" />
     <AssociationSet Name="FK__q_genelSo__useri__2610A626" Association="quizAppModel.FK__q_genelSo__useri__2610A626">
       <End Role="q_kullanici" EntitySet="q_kullanici" />
       <End Role="q_genelSonuc" EntitySet="q_genelSonuc" />
@@ -31,6 +31,16 @@
     <Property Name="kategoriId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="kategori" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="q_soru" Relationship="quizAppModel.FK__q_soru__kategori__69FBBC1F" FromRole="q_kategori" ToRole="q_soru" />
+  </EntityType>
+  <EntityType Name="q_kullanici">
+    <Key>
+      <PropertyRef Name="userid" />
+    </Key>
+    <Property Name="userid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="username" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="password" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="rol" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="q_genelSonuc" Relationship="quizAppModel.FK__q_genelSo__useri__2610A626" FromRole="q_kullanici" ToRole="q_genelSonuc" />
   </EntityType>
   <EntityType Name="q_secenek">
     <Key>
@@ -53,7 +63,6 @@
     <Property Name="soru" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
     <Property Name="derece" Type="Int32" />
     <Property Name="kategoriId" Type="Int32" />
-    <Property Name="soruNo" Type="Int32" />
     <NavigationProperty Name="q_kategori" Relationship="quizAppModel.FK__q_soru__kategori__69FBBC1F" FromRole="q_soru" ToRole="q_kategori" />
     <NavigationProperty Name="q_secenek" Relationship="quizAppModel.FK__q_secenek__soruU__6CD828CA" FromRole="q_soru" ToRole="q_secenek" />
   </EntityType>
@@ -81,15 +90,15 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <EntityType Name="q_kullanici">
+  <EntityType Name="q_genelSonuc">
     <Key>
-      <PropertyRef Name="userid" />
+      <PropertyRef Name="sinavUniq" />
     </Key>
-    <Property Name="userid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="username" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="password" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-    <Property Name="rol" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
-    <NavigationProperty Name="q_genelSonuc" Relationship="quizAppModel.FK__q_genelSo__useri__2610A626" FromRole="q_kullanici" ToRole="q_genelSonuc" />
+    <Property Name="sinavUniq" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="userid" Type="Int32" />
+    <Property Name="quizCount" Type="Int32" />
+    <NavigationProperty Name="q_kullanici" Relationship="quizAppModel.FK__q_genelSo__useri__2610A626" FromRole="q_genelSonuc" ToRole="q_kullanici" />
+    <NavigationProperty Name="q_sinavSonuc" Relationship="quizAppModel.FK__q_sinavSo__sinav__28ED12D1" FromRole="q_genelSonuc" ToRole="q_sinavSonuc" />
   </EntityType>
   <EntityType Name="q_sinavSonuc">
     <Key>
@@ -101,19 +110,9 @@
     <Property Name="puan" Type="Int32" />
     <Property Name="sinavTarih" Type="DateTime" Precision="0" />
     <Property Name="soruUniq" Type="Guid" />
+    <Property Name="sinavUniq" Type="Int32" />
     <Property Name="sinavNo" Type="Int32" />
     <NavigationProperty Name="q_genelSonuc" Relationship="quizAppModel.FK__q_sinavSo__sinav__28ED12D1" FromRole="q_sinavSonuc" ToRole="q_genelSonuc" />
-  </EntityType>
-  <EntityType Name="q_genelSonuc">
-    <Key>
-      <PropertyRef Name="genelId" />
-    </Key>
-    <Property Name="genelId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="userid" Type="Int32" />
-    <Property Name="genelPuan" Type="Int32" />
-    <Property Name="sinav_no" Type="Int32" />
-    <NavigationProperty Name="q_kullanici" Relationship="quizAppModel.FK__q_genelSo__useri__2610A626" FromRole="q_genelSonuc" ToRole="q_kullanici" />
-    <NavigationProperty Name="q_sinavSonuc" Relationship="quizAppModel.FK__q_sinavSo__sinav__28ED12D1" FromRole="q_genelSonuc" ToRole="q_sinavSonuc" />
   </EntityType>
   <Association Name="FK__q_genelSo__useri__2610A626">
     <End Type="quizAppModel.q_kullanici" Role="q_kullanici" Multiplicity="0..1" />
@@ -132,10 +131,10 @@
     <End Type="quizAppModel.q_sinavSonuc" Role="q_sinavSonuc" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="q_genelSonuc">
-        <PropertyRef Name="genelId" />
+        <PropertyRef Name="sinavUniq" />
       </Principal>
       <Dependent Role="q_sinavSonuc">
-        <PropertyRef Name="sinavNo" />
+        <PropertyRef Name="sinavUniq" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

@@ -21,10 +21,10 @@ namespace QuizApp.Controllers
         public ActionResult Quiz()
         {
             var dbgenelSonuc = new q_genelSonuc();
-            var sinavNo = (from gs in db.q_genelSonuc select gs.sinav_no).Max();
+            var sinavNo = (from gs in db.q_genelSonuc select gs.quizCount).Max();
 
-            if (sinavNo == null) dbgenelSonuc.sinav_no = 1;
-            else dbgenelSonuc.sinav_no = sinavNo + 1;
+            if (sinavNo == null) dbgenelSonuc.quizCount = 1;
+            else dbgenelSonuc.quizCount = sinavNo + 1;
             dbgenelSonuc.userid = 2;
 
 
@@ -43,7 +43,9 @@ namespace QuizApp.Controllers
         public ActionResult QuizSonuc(string soruUniq, bool sonuc)
         {
             var soruID = Guid.Parse(soruUniq);
-            var sinavNo = (from gs in db.q_genelSonuc select gs.sinav_no).Max();
+            var quizCount = (from gs in db.q_genelSonuc select gs.quizCount).Max();
+            var sinavUniq = (from gs in db.q_genelSonuc  where gs.quizCount== quizCount select gs.sinavUniq).First();
+
 
             q_sinavSonuc SinavSonuc = new q_sinavSonuc();
             q_soru dbsoru = db.q_soru.Where(s => s.soruUniq == soruID).SingleOrDefault();
@@ -59,7 +61,8 @@ namespace QuizApp.Controllers
 
             SinavSonuc.kategoriId = dbsoru.kategoriId;
             SinavSonuc.sinavTarih = DateTime.Now;
-            SinavSonuc.sinavNo = sinavNo;
+            SinavSonuc.sinavNo = quizCount;
+            SinavSonuc.sinavUniq = sinavUniq;
 
 
 
@@ -119,11 +122,11 @@ namespace QuizApp.Controllers
                     return View(model);
 
                 }
-                var sinavNo_ = (from gs in db.q_genelSonuc select gs.sinav_no).Max();
-                q_genelSonuc dbGenelSonuc = db.q_genelSonuc.Where(q => q.sinav_no == sinavNo_).SingleOrDefault();
-                //.AsEnumerable()
-                dbGenelSonuc.genelPuan = db.q_sinavSonuc.Where(q => q.sinavNo == sinavNo_).Sum(q => q.puan);
-                db.SaveChanges();
+                //var sinavNo_ = (from gs in db.q_genelSonuc select gs.quizCount).Max();
+                //q_genelSonuc dbGenelSonuc = db.q_genelSonuc.Where(q => q.quizCount == sinavNo_).SingleOrDefault();
+                ////.AsEnumerable()
+                //dbGenelSonuc.genelPuan = db.q_sinavSonuc.Where(q => q.sinavNo == sinavNo_).Sum(q => q.puan);
+                //db.SaveChanges();
 
                 mesajModel.Mesaj = "Sınav Tamamlandı...";
                 mesajModel.Status = 1;

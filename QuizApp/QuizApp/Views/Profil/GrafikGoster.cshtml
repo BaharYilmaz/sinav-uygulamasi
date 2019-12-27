@@ -1,4 +1,4 @@
-﻿@model List<QuizApp.Models.EntityFramework.q_sinavSonuc>
+﻿@model List<QuizApp.Models.EntityFramework.q_genelSonuc>
 @{
     ViewBag.Title = "GrafikGoster";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -9,10 +9,10 @@
     <div class="row">
         
         <div class="col-md-6">
-            <select>
+            <select id="sinavlar">
                 @foreach (var sinav in Model)
                 {
-                    <option name="sinavNo" value="@sinav.sinavNo">@sinav.sinavNo</option>
+                    <option name="sinavNo" value="@sinav.quizCount">@sinav.quizCount</option>
 
                 }
 
