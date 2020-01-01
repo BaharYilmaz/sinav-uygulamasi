@@ -1,12 +1,20 @@
-<h2><b>Quiz App</b></h2><br>
+# Quiz App
+
+## Yazılım Sınama Dönem Projesi(2019-2020)
+
+## PROJE EKİBİ 
+- Bahar YILMAZ ~172802013
+- Zişan KARSATAR ~172802058
 
 ## Amaç
-Bu uygulama ile öğrencilerin Türkçe dil bilgileri pekiştirilmek istenmiştir. Basit arayüz sayesinde kullanımı kolayladır. Grafikler sayesinde öğrenciler ilerlemelerini takip edebilir.  </br>
-Öğretmen giriş ekranı sayesinde sisteme soru eklenebilir. Veritabanında bulunan sorular listelenebilir.
-Yazılım Sınama Dönem Projesi(2019-2020)
 
-## Projenin İçeriği
-   Bu proje, Microsoft Visual Studio ortamında verilen gereksinimler temel alınarak MVC çatısı altında .NET C# ile yaklaşık 5 haftada      hazırlanmıştır. Proje kapsamında 6 farklı controller, 8 farklı sınıf ve verilerin tutulması için entity framework ile MSSQL veri tabanında 7 farklı tablo kullanılmıştır. Tasarımın hazırlanmasında Boostrapt kütüphanesinden yararlanılmıştır. 
+Quiz App, belirli kategorilere ait Türkçe sorularıyla öğrencilerin dil bilgisini pekiştirmesini ve öğretmenlerin sisteme Türkçe soruları eklemesini amaçlamaktadır.
+
+## Özellikler
+
+* Öğretmenler ve öğrenciler sisteme giriş yapabilir.
+* Öğretmenler sisteme soru ekleyebilir ve sistemdeki tüm soruları görüntüleyebilir.
+* Öğrenciler sınav olabilir, sınav souçlarını garfik üzerinde inceleyebilir ve olduğu tüm sınavların genel sonucunu grafik üzerinde takip edebilir.
   
 
 ## Resimler
@@ -30,14 +38,9 @@ Yazılım Sınama Dönem Projesi(2019-2020)
 <br>Öğrenci Profil Ekranı
  ![grafikEkranı](https://user-images.githubusercontent.com/48350459/71643611-eb3fd100-2ccc-11ea-8b89-6f6065010f1d.png)
   
-## Prerequisites
-* Microsoft Visual Studio 2017
-* ASP.NET MVC
-* QL Server Management Studio
-* C#
+## Kullanılan Teknolojiler
+
+
 
    
-## PROJE EKİBİ 
-- Bahar YILMAZ ~172802013
-- Zişan KARSATAR ~172802058
 
