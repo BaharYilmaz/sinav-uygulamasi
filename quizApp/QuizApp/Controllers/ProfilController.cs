@@ -13,16 +13,27 @@ namespace QuizApp.Controllers
     public class ProfilController : Controller
     {
         quizAppEntities db = new quizAppEntities();
-        //private int? sinavNo = -1;
 
-      
+        //Grafikler sayfasını açma
         public ActionResult GrafikGoster()
         {
+            ViewBag.sinavNo = -1;
             var sinavlar = (db.q_genelSonuc.Distinct()).ToList();
-            // var dbSonSinav = ((from ss in db.q_sinavSonuc select ss.sinavNo).Distinct()).Max();
             return View(sinavlar);
+        
         }
 
+        //Seçilen sınav numarasına göre grafik oluşturma
+        public ActionResult GrafikGoster_(int? sinavNo)
+        {
+            ViewBag.sinavNo = sinavNo;
+            var sinavlar = (db.q_genelSonuc.Distinct()).ToList();
+
+            return View("GrafikGoster", sinavlar);
+
+        }
+
+        //Tek bir sınav sonucu grafiği oluşturma - default son sınav
         public ActionResult AnlikGrafik(int? sinavNo)
         {
             List<string> sinavPuan = GetSinavSonuc(sinavNo);
@@ -34,9 +45,12 @@ namespace QuizApp.Controllers
                 yValues: sinavPuan)
                 .Write();
 
-            return File(chartSonuc.ToWebImage().GetBytes(), "image/jpeg");
+            var grafik = File(chartSonuc.ToWebImage().GetBytes(), "image/jpeg");
+            var sonuc = "<img src='"+ grafik + "'/>";
+            return grafik;
 
         }
+        //Tüm sınavların ortalama sonuc grafiği oluşturma
         public ActionResult GenelGrafik()
         {
 
@@ -52,6 +66,7 @@ namespace QuizApp.Controllers
             return File(chartSonuc.ToWebImage().GetBytes(), "image/jpeg");
         }
 
+        //Veritabanından istenilen sınav numarasına göre sonuc çekme
         private List<string> GetSinavSonuc(int? Sinav_no)
         {
            
@@ -77,7 +92,6 @@ namespace QuizApp.Controllers
 
                               select new
                               {
-                                  //quizKategoriId = ss.kategoriId,
                                   quizPuan = ss.puan,
 
                               }).ToList();
@@ -97,9 +111,9 @@ namespace QuizApp.Controllers
 
         }
 
+        //Veritabanından tüm sınav sınavların sonucuna göre ortalama sonuc çekme
         private List<string> GetGenelSonuc()
         {
-            //TO DO: ortalama sonuc
 
             List<string> returnSonuc = new List<string>();
 
@@ -107,19 +121,15 @@ namespace QuizApp.Controllers
 
             for (int i = 1; i < 7; i++)
             {
-                //var m = 0;
                 int? puanToplam = 0;
-                //float sonuc =0.0f;
                 for (int j = 1; j < dbSinavSayisi + 1; j++)
                 {
-                    //int? puan;
                     var dbQuiz = from ss in db.q_sinavSonuc
                                  join gs in db.q_genelSonuc on ss.sinavNo equals gs.quizCount
                                  where ss.sinavNo == j && ss.kategoriId == i
 
                                  select new
                                  {
-                                     // quizKategoriId = ss.kategoriId,
                                      quizPuan = ss.puan,
 
                                  };
@@ -129,21 +139,7 @@ namespace QuizApp.Controllers
                         puanToplam += puan.quizPuan;
 
                     }
-                    /*
-                    if (m < dbSinavSayisi)
-                    {
-                        m++;
-                    }
-                    else break;*/
-
-                    //puanlar.Add(dbQuiz.Take()
-                    //var puanToplam1 = db.CurrentRow.Cells["Kategori"].Value.ToString();
-                    //var e0 = liste.Select(x => new { Ad = x.Isim, IslemTip = x.Tip });
-                    // puanToplam= dbQuiz.AsEnumerable().Select(q => q.quizPuan);
-                    // puanToplam = dbQuiz.AsEnumerable().Sum(q => q.quizPuan);
-                    //puanToplam += dbQuiz.AsEnumerable().Sum()
-                    //puanToplam += dbQuiz.Take(quizPuan);
-                    //var puanToplam2 = dbQuiz.AsQueryable().ToString(quizPuan);
+                   
 
                 }
 

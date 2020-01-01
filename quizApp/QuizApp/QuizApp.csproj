@@ -124,6 +124,7 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\quiz.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -173,7 +174,6 @@
     <Compile Include="Security\QuizRoleProvider.cs" />
     <Compile Include="ViewModel\mesajViewModel.cs" />
     <Compile Include="ViewModel\quizSonucViewModel.cs" />
-    <Compile Include="ViewModel\SoruViewModel.cs" />
     <Compile Include="ViewModel\viewModel.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -188,7 +188,6 @@
     <Content Include="Views\Profil\GrafikGoster.cshtml" />
     <Content Include="Views\Shared\_Mesaj.cshtml" />
     <Content Include="Views\Home\Home.cshtml" />
-    <Content Include="Views\Quiz\QuizBasla.cshtml" />
     <Content Include="Views\QuizHazirla\QuizListele.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

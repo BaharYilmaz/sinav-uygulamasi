@@ -10,7 +10,7 @@ body {
     margin-bottom: 50px;
 }
 
-.quizCevap:hover {
+.secenek:hover {
     background-color: rgb(177, 176, 176);
 }
 
@@ -20,7 +20,9 @@ body {
 /*input[type="file"] {
     display: none;
 }*/
-
+/*.quizCevap {
+    background-color: blueviolet;
+}*/
 
 #quizBaslik {
     margin-bottom: 20px;

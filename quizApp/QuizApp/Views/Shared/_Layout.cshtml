@@ -18,55 +18,18 @@
 
 
 
-    <script>
-        //$(document).ready(function () {
+    <style>
+        #myProgress {
+            width: 100%;
+            background-color: #ddd;
+        }
 
-
-        //    $('input:radio[name=btnDogruCvp]:checked').change(function () {
-        //        alert("ff");
-        //        wimdow.alert(dogruCevap);
-
-        //        var dogruCevap = $(this).siblings(".btnCvp").val();
-        //        wimdow.alert(dogruCevap);
-        //        document.getElementById("dogruCvp").innerHTML = dogruCevap;
-
-        //    });
-            //$(".btnDogruCvp").change(function () {
-
-            //    var dogruCevap = $(this).siblings(".btnCvp");
-            //    document.getElementById("dogruCvp").innerHTML = dogruCevap;
-
-            //});
-       // });
-        //$(document).ready(function () {
-        //    $("#btnNext").prop("disabled", true);
-        //    //$("#quizDogruCvp").hide();
-        //    var quizDogruCvp = $("#quizDogruCvp").val();
-        //    alert(quizDogruCvp);
-
-
-
-        //    $('.quizCevap').click(function () {
-
-
-        //        var cevap = "akk";
-        //        //document.getElementsByName("quizCevap").val();
-        //        window.alert(cevap);
-
-        //        if (quizDogruCvp == cevap) {
-        //            $(this).css("background-color", "green")
-        //        }
-        //        else {
-        //            $(this).css("background-color", "red")
-        //            // $("#quizDogruCvp").show();
-        //        }
-        //        $("#btnNext").prop("disabled", false);
-
-        //    });
-
-        //});
-    </script>
-
+        #myBar {
+            width: 100%;
+            height: 30px;
+            background-color: #4CAF50;
+        }
+    </style>
 </head>
 
 <body>
@@ -79,11 +42,13 @@
 
     </div>
 
+    
 
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"
             integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
             crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+            crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
     @RenderSection("scripts", false)
@@ -91,6 +56,15 @@
 
     <script>
         $(document).ready(function () {
+          //  setInterval(bak,100);
+
+            $("#sinavStart").click(function () {
+
+                $(".navbarButton").unbind("click");
+                $(".navbarButton").css("color", "lightGray");
+
+
+            });
 
             $('#secenek').change(function () {
 
@@ -99,108 +73,84 @@
 
             });
 
-       
-       
-            
+
             $('#sinavlar').on('change', function () {
 
                 var sinavNo_ = $('#sinavlar').val();
-               
-
+               // alert(sinavNo_);
                 $.ajax({
 
-                    url: "/Profil/AnlikGrafik",
+                    url: "/Profil/GrafikGoster_",
                     type: 'POST',
-                    data: "&sinavNo=" + sinavNo_ ,
+                    data: "&sinavNo=" + sinavNo_,
                     success: function (gelenveri) {
-                        alert("başarı");
+
                     },
                     error: function (hata) {
-                       // alert("hata");
+
 
                     }
-                     });
+                });
 
             });
-        });
 
+            var sayac_ = $("#sure").text();
+            //alert(sayac_);
+            var sayac = parseInt(sayac_);
+            //alert(sayac);
+            //function bak() {
+            //    if (sayac > 0) {
+            //        sayac = sayac - 1;
+            //        $("#sure").text(sayac);
+            //    }
+            //    else {
+            //        $("#sure").text("süre bitti");
+            //    }
+            //}
+            var elem = document.getElementById("myBar");
+            function bak() {
+
+                if (sayac > 0) {
+                    //alert("fonk");
+                    sayac = sayac - 1;
+                    $("#sure").text(sayac);
+                    elem.style.width = sayac + "%";
+                }
+                else {
+                    $(location).attr('href', 'Home/Home');
+                    //$("#sure").text("Süre Bitti");
+                    @*@Url.Action("GenelGrafik","Profil");*@
+                }
+            }
+
+           // var i = s;
+
+
+            //function move() {
+            //   // if (i == 50) {
+            //        //i = 50;
+            //       /// var width = i;
+            //        var id = setInterval(frame, 1000);
+            //        function frame() {
+            //            if (i == 0) {
+            //                clearInterval(id);
+            //               // i = 50;
+            //            } else {
+            //                i--;
+
+            //                elem.style.width = i + "%";
+            //            }
+            //        }
+            //    //}
+            //}
+        });
     </script>
 
-    @*@
-            $(document).ready(function () {
-                $("#quizDogruCvp").hide();
-
-                var dogruMu = false;
-
-                var quizDogruCvp = $("#quizDogruCvp").text();
-                // alert(quizDogruCvp);
-                //alert("doğru cevabı alamadık");
-
-                $('.quizCevap').click(function () {
-
-                   // alert("tıklandı")
-                    var cevap = $(this).attr('name');
-
-
-                    if (quizDogruCvp == cevap) {
-                        $(this).css("background-color", "green")
-                        dogruMu = true;
-                    }
-                    else {
-                        $(this).css("background-color", "red")
-                        // $("#quizDogruCvp").show();
-                        dogruMu = false;
-
-                    } var btn = $("#btnNext");
-                    btn.removeAttr("disabled");
-                    // $("#btnNext").prop("disabled", false);
-                    // window.alert(dogruMu);
-                });
-
-              //  nextClick = $("#soruSayac").text();
-               // alert(nextClick);
-
-                $("#btnNext").click(function () {
-
-
-
-                    var soruUniq = $("#SoruUniq").text();
-
-                    $.ajax({
-
-                        url:"/Quiz/QuizSonuc",
-                        //url: '@Url.Action("QuizSonuc", "Quiz")',
-                        type: 'POST',
-                        // dataType: "json",
-                        data: "&soruUniq=" + soruUniq + "&sonuc=" + dogruMu,
-                        success: function (gelenveri) {
-
-                        },
-                        error: function (hata) {
-                           // window.alert("hata");
-
-                        }
-                    });
-                    nextClick++;
-                //    alert("sayac --" + nextClick);
-
-                    //$("#soruSayac").text(nextClick);
-                    //$("#soruSayac").innerText = nextClick++;
-                });
-
-
-            });
-
-
-        </script>*@
-
+    
 
 </body>
 
 
-@*veritabanı işlemlerinde*@
-@*<script src="~/Scripts/jquery.validate.min.js"></script>
-    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>*@
 </html>
 
 

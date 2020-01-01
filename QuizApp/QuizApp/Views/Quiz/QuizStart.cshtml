@@ -5,63 +5,67 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+
 <div class="row">
     <div class="col-sm-9 col-md-7 col-lg-5 mx-auto" style="margin-top: 80px;">
         <div class="card card-signin my-5">
             <div class="card-body">
-                <h5 class="card-title text-center">Quiz Ekranı</h5>
-                @*@using (Html.BeginForm("Quiz", "Quiz", FormMethod.Post))
-                    {*@
+                <br />
+                <div id="myProgress">
+                    <div id="myBar"></div>
+                </div>
+                <hr class="my-4">
+                <h4 class="card-title text-center">Quiz Ekranı</h4>
+
+
+                <div hidden>
+                    <span id="sure" style="font-size: 24pt; font-weight: bold;" hidden>@TempData["sayac"]</span>
+                </div>
 
                 <form method="post" id="quizSinavForm">
 
+                    <div class="form-label-group " style="border: 1px solid lightGrey;">
 
+                        @*<h4 id="soruSayac">@ViewBag.Sayac</h4>*@
 
-                    <div class="form-label-group">
-                        <h4 id="soruSayac">@ViewBag.Sayac</h4>
-                        @*@Html.HiddenFor(m => m.Soru.soruUniq)*@
-
-                        <h3>
+                        <h4>
 
                             @(Model.Soru.soru)
-                            @*@ViewBag.quizSoru*@
-                        </h3>
-                    </div>
-                    <br />
-                    <div class="form-label-group">
-                        <a class="btn quizCevap" name="cevap1">
-                            @(Model.Secenek.cevap1)
-                            @*@ViewBag.quizCvp1*@
-
-                        </a>
+                        </h4>
 
                     </div>
                     <br />
-                    <div class="form-label-group">
-                        <a class="btn quizCevap" name="cevap2">
-                            @(Model.Secenek.cevap2)
+                    <div id="formSecenek">
+                        <div class="form-label-group secenek" style="text-align: center;">
+                            <a class="btn quizCevap" id="cevap1" name="cevap1">
+                                @(Model.Secenek.cevap1)
+                            </a>
 
-                            @*@ViewBag.quizCvp2*@
+                        </div>
+                        <br />
+                        <div class="form-label-group secenek" style="text-align: center;">
+                            <a class="btn quizCevap" id="cevap2" name="cevap2">
+                                @(Model.Secenek.cevap2)
 
-                        </a>
-                    </div>
-                    <br />
-                    <div class="form-label-group">
-                        <a class="btn quizCevap" name="cevap3">
-                            @(Model.Secenek.cevap3)
+                            </a>
 
-                            @*@ViewBag.quizCvp3*@
+                        </div>
+                        <br />
+                        <div class="form-label-group secenek" style="text-align: center;">
+                            <a class="btn quizCevap" id="cevap3" name="cevap3">
+                                @(Model.Secenek.cevap3)
 
-                        </a>
-                    </div>
-                    <br />
-                    <div class="form-label-group">
-                        <a class="btn quizCevap" name="cevap4">
-                            @(Model.Secenek.cevap4)
+                            </a>
 
-                            @*@ViewBag.quizCvp4*@
+                        </div>
+                        <br />
+                        <div class="form-label-group  secenek" style="text-align: center;">
+                            <a class="btn quizCevap" id="cevap4" name="cevap4">
+                                @(Model.Secenek.cevap4)
 
-                        </a>
+
+                            </a>
+                        </div>
                     </div>
                     <div class="form-label-group">
                         <button class="btn" id="quizDogruCvp" hidden>@(Model.Secenek.dogruCvp)</button>
@@ -72,7 +76,7 @@
                     </div>
 
 
-                    <br /><br />
+
 
                     <hr class="my-4">
 
@@ -87,4 +91,5 @@
 @section scripts
 {
     <script src="~/Scripts/custom.js"></script>
+    <script src="~/Scripts/quiz.js"></script>
 }

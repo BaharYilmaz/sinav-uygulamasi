@@ -15,13 +15,15 @@ namespace QuizApp.Controllers
     {
         private quizAppEntities db = new quizAppEntities();
         private static int soruSayac = 0;
-       // private static bool getDb = false;
+        private static int sureSayac = 0;
 
+        //Quiz Ekranını Görüntüleme
         [HttpGet]
         public ActionResult Quiz()
         {
             var dbgenelSonuc = new q_genelSonuc();
             var sinavNo = (from gs in db.q_genelSonuc select gs.quizCount).Max();
+
 
             if (sinavNo == null) dbgenelSonuc.quizCount = 1;
             else dbgenelSonuc.quizCount = sinavNo + 1;
@@ -30,7 +32,9 @@ namespace QuizApp.Controllers
 
             db.q_genelSonuc.Add(dbgenelSonuc);
             db.SaveChanges();
-           // getDb = true;
+
+            sureSayac = 100;
+            TempData["sayac"] = sureSayac;
 
 
             return RedirectToAction("QuizStart");
@@ -38,13 +42,13 @@ namespace QuizApp.Controllers
         }
 
 
-
+        //Quiz cevabını veritabanına kaydetme
         [HttpPost]
-        public ActionResult QuizSonuc(string soruUniq, bool sonuc)
+        public ActionResult QuizSonuc(string soruUniq, bool sonuc, string sayac)
         {
             var soruID = Guid.Parse(soruUniq);
             var quizCount = (from gs in db.q_genelSonuc select gs.quizCount).Max();
-            var sinavUniq = (from gs in db.q_genelSonuc  where gs.quizCount== quizCount select gs.sinavUniq).First();
+            var sinavUniq = (from gs in db.q_genelSonuc where gs.quizCount == quizCount select gs.sinavUniq).First();
 
 
             q_sinavSonuc SinavSonuc = new q_sinavSonuc();
@@ -64,51 +68,44 @@ namespace QuizApp.Controllers
             SinavSonuc.sinavNo = quizCount;
             SinavSonuc.sinavUniq = sinavUniq;
 
-
+            sureSayac = int.Parse(sayac);
 
             db.q_sinavSonuc.Add(SinavSonuc);
             db.SaveChanges();
-           
+
             return RedirectToAction("QuizStart");
-            //  return RedirectToAction("QuizStart",new RouteValueDictionary(new { controller="Quiz",action= "QuizStart", soru= _soruSayac }) );
 
         }
 
+        //Quiz ekranına sırayla soru yazdırma
         public ActionResult QuizStart()
         {
 
-             mesajViewModel mesajModel = new mesajViewModel();
-
-
-
-
-
+            mesajViewModel mesajModel = new mesajViewModel();
+            
             soruSayac++;
 
-            //if (quiz != null)
-            //{
-           // int i = soruSayac;
-                while (soruSayac < 7)
-                {
+            while (soruSayac < 7)
+            {
 
 
-                    var quiz = ((from k in db.q_kategori
-                                join s in db.q_soru on k.kategoriId equals s.kategoriId
-                                join sc in db.q_secenek on s.soruUniq equals sc.soruUniq
-                                where s.derece == 0 && s.kategoriId == soruSayac
+                var quiz = ((from k in db.q_kategori
+                             join s in db.q_soru on k.kategoriId equals s.kategoriId
+                             join sc in db.q_secenek on s.soruUniq equals sc.soruUniq
+                             where s.derece == 0 && s.kategoriId == soruSayac
 
-                                 select new
-                                {
-                                    quizKategori = k.kategoriId,
-                                    quizSoruUniq = s.soruUniq,
-                                    quizSoru = s.soru,
-                                    quizCvp1 = sc.cevap1,
-                                    quizCvp2 = sc.cevap2,
-                                    quizCvp3 = sc.cevap3,
-                                    quizCvp4 = sc.cevap4,
-                                    quizDogruCvp = sc.dogruCvp
+                             select new
+                             {
+                                 quizKategori = k.kategoriId,
+                                 quizSoruUniq = s.soruUniq,
+                                 quizSoru = s.soru,
+                                 quizCvp1 = sc.cevap1,
+                                 quizCvp2 = sc.cevap2,
+                                 quizCvp3 = sc.cevap3,
+                                 quizCvp4 = sc.cevap4,
+                                 quizDogruCvp = sc.dogruCvp
 
-                                }).Take(1)).ToList();
+                             }).Take(1)).ToList();
 
                 if (quiz != null)
                 {
@@ -126,41 +123,41 @@ namespace QuizApp.Controllers
                     model.Soru.soruUniq = quiz[0].quizSoruUniq;
                     model.Soru.kategoriId = quiz[0].quizKategori;
 
+
+                    TempData["sayac"] = sureSayac;
                     return View(model);
+
                 }
                 else
                 {
                     soruSayac++;
                 }
-                //else
-                //{
-
-                //    mesajModel.Mesaj = "Cevaplanacak Soru Kalmadı...";
-
-                //    mesajModel.Status = 0;
-                //    mesajModel.LinkText = "ANASAYFA";
-                //    mesajModel.Url = "Home";
-                //    return View("_mesaj", mesajModel);
-                //}
 
             }
-                //var sinavNo_ = (from gs in db.q_genelSonuc select gs.quizCount).Max();
-                //q_genelSonuc dbGenelSonuc = db.q_genelSonuc.Where(q => q.quizCount == sinavNo_).SingleOrDefault();
-                ////.AsEnumerable()
-                //dbGenelSonuc.genelPuan = db.q_sinavSonuc.Where(q => q.sinavNo == sinavNo_).Sum(q => q.puan);
-                //db.SaveChanges();
 
-                mesajModel.Mesaj = "Sınav Tamamlandı...";
-                mesajModel.Status = 1;
-                mesajModel.LinkText = "Sınav sonucu için profile git";
-                mesajModel.Url = "/Profil/GrafikGoster";
-           
+            mesajModel.Mesaj = "Sınav Tamamlandı...";
+            mesajModel.Status = 1;
+            mesajModel.LinkText = "Sınav sonucu için profile git";
+            mesajModel.Url = "/Profil/GrafikGoster";
+
 
             return View("_mesaj", mesajModel);
 
 
-            //}
-           
+        }
+
+        //Quiz süresi bittiğinde mesaj sayfasına yönlendirme
+        public ActionResult Route()
+        {
+            mesajViewModel mesajModel = new mesajViewModel();
+
+
+            mesajModel.Mesaj = "Süre Bitti...";
+            mesajModel.Status = 0;
+            mesajModel.LinkText = "Anasayfaya git";
+            mesajModel.Url = "/Home/Home";
+
+            return View("_mesaj", mesajModel);
 
 
         }

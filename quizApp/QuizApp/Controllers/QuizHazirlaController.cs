@@ -15,6 +15,7 @@ namespace QuizApp.Controllers
     {
         quizAppEntities db = new quizAppEntities();
 
+        //Quiz hazırlama ekranı
         public ActionResult QuizOlustur()
         {
             var model = new viewModel()
@@ -29,6 +30,8 @@ namespace QuizApp.Controllers
             return View("QuizOlustur", model);
 
         }
+
+        //Soru kaydetme
         [ValidateAntiForgeryToken]
         public ActionResult SoruKaydet(q_soru soru,q_secenek secenek)
         {
@@ -65,17 +68,10 @@ namespace QuizApp.Controllers
 
 
             return View("_mesaj", mesajModel);
-            //var model = new viewModel()
-            //{
-            //    Kategori = db.q_kategori.ToList(),
-            //    Soru = new q_soru(),
-            //    Secenek = new q_secenek()
-
-            //};
-            //return View("QuizOlustur", model);
-
+           
 
         }
+        //Tüm soruları listeleme
         public ActionResult QuizListele()
         {
                

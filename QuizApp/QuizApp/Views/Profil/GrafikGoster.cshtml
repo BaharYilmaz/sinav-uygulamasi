@@ -28,12 +28,10 @@
         </div>
     </div>
     <div class="row">
+     
 
-        <div class="col-md-6">
-           
-           
-
-            <img src="@Url.Action("AnlikGrafik","Profil",new {sinavNo=-1 })" />
+        <div class="col-md-6" id="grafik">
+            <img src="@Url.Action("AnlikGrafik","Profil",new { sinavNo = ViewBag.sinavNo})" />
         </div>
         <div class="col-md-6">
             <img src="@Url.Action("GenelGrafik","Profil")" />
@@ -43,6 +41,4 @@
 
 
 
-        @*<div style="margin-left:3%;">
-                @Html.ActionLink("Profile Geri Dön", "Details", "User", null, new { @class = "btn btn-primary" })
-            </div>*@
+     
