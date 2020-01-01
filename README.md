@@ -3,8 +3,8 @@
 ## Yazılım Sınama Dönem Projesi(2019-2020)
 
 ## PROJE EKİBİ 
-- Bahar YILMAZ ~172802013
-- Zişan KARSATAR ~172802058
+- Bahar YILMAZ ~ https://github.com/BaharYilmaz
+- Zişan KARSATAR ~ https://github.com/zisankarsatar
 
 ## Amaç
 
@@ -30,7 +30,7 @@ Quiz App, belirli kategorilere ait Türkçe sorularıyla öğrencilerin dil bilg
 <br>Öğretmen Ekranı
  ![ogretmenEkranı](https://user-images.githubusercontent.com/48350459/71644139-bdf72100-2cd4-11ea-8217-f627a9543034.png)
 <br>Soru Listleme Ekranı
- ![soruListelemeEkranı](https://user-images.githubusercontent.com/48350459/71643595-addb4380-2ccc11ea-54-16dd86397da9.png)
+ ![soruListelemeEkranı](https://user-images.githubusercontent.com/48556212/71645919-4fc05780-2cf0-11ea-9d04-2035d26844a6.png)
 <br>Öğrenci Ekranı
  ![ogrenciEkranı](https://user-images.githubusercontent.com/48350459/71644131-aa4bba80-2cd4-11ea-82db-3ee65d879aff.png)
 <br>Öğrenci Sınav Ekranı
@@ -40,6 +40,7 @@ Quiz App, belirli kategorilere ait Türkçe sorularıyla öğrencilerin dil bilg
   
 ## Kullanılan Teknolojiler
 
+![quizApp](https://user-images.githubusercontent.com/48556212/71645965-e9880480-2cf0-11ea-9a43-352c8f22cfe4.png)
 
 
    
