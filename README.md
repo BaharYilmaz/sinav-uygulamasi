@@ -14,7 +14,7 @@ Quiz App, belirli kategorilere ait Türkçe sorularıyla öğrencilerin dil bilg
 
 * Öğretmenler ve öğrenciler sisteme giriş yapabilir.
 * Öğretmenler sisteme soru ekleyebilir ve sistemdeki tüm soruları görüntüleyebilir.
-* Öğrenciler sınav olabilir, sınav souçlarını garfik üzerinde inceleyebilir ve olduğu tüm sınavların genel sonucunu grafik üzerinde takip edebilir.
+* Öğrenciler sınav olabilir, sınav sonuçlarını garfik üzerinde inceleyebilir ve olduğu tüm sınavların genel sonucunu grafik üzerinde takip edebilir.
   
 
 ## Resimler
